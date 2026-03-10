@@ -1,0 +1,452 @@
+/* ===== 全局变量 ===== */
+:root {
+    --primary: #0052cc;      /* 专业蓝 */
+    --primary-dark: #0747a6;
+    --secondary: #00a3bf;    /* 科技青 */
+    --success: #36b37e;
+    --warning: #ffab00;
+    --danger: #ff5630;
+    --dark: #172b4d;
+    --gray-1: #f4f5f7;
+    --gray-2: #ebecf0;
+    --gray-3: #c1c7d0;
+    --gray-4: #7a869a;
+    --light: #ffffff;
+    --shadow: 0 8px 20px rgba(9, 30, 66, 0.15);
+    --shadow-sm: 0 4px 8px rgba(9, 30, 66, 0.1);
+    --radius: 8px;
+    --transition: all 0.3s ease;
+}
+
+/* ===== 基础重置 ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    line-height: 1.6;
+    color: var(--dark);
+    background-color: var(--gray-1);
+}
+
+/* ===== 语言切换器 ===== */
+.language-switcher {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background: var(--light);
+    padding: 4px;
+    border-radius: 40px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    gap: 4px;
+}
+
+.lang-btn {
+    padding: 8px 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 30px;
+    transition: var(--transition);
+    color: var(--gray-4);
+}
+
+.lang-btn:hover {
+    color: var(--primary);
+}
+
+.lang-btn.active {
+    background: var(--primary);
+    color: white;
+}
+
+/* ===== 导航栏 ===== */
+.navbar {
+    background: var(--light);
+    padding: 1rem 5%;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2.5rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--dark);
+    font-weight: 500;
+    transition: var(--transition);
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary);
+    transition: var(--transition);
+}
+
+.nav-links a:hover {
+    color: var(--primary);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+    width: 100%;
+}
+
+/* ===== 英雄区 ===== */
+.hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    text-align: center;
+    padding: 100px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><path d="M30 0 L60 30 L30 60 L0 30 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+    opacity: 0.1;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    position: relative;
+    font-weight: 700;
+}
+
+.hero p {
+    font-size: 1.3rem;
+    opacity: 0.95;
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* ===== 商品展示区 ===== */
+.products {
+    padding: 80px 5%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.products h2 {
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 2.5rem;
+    color: var(--dark);
+    position: relative;
+}
+
+.products h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--primary);
+    margin: 15px auto 0;
+    border-radius: 2px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.product-card {
+    background: var(--light);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    position: relative;
+    border: 1px solid var(--gray-2);
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow);
+}
+
+.product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--gray-2);
+}
+
+.product-card h3 {
+    padding: 20px 20px 10px;
+    font-size: 1.2rem;
+    color: var(--dark);
+}
+
+.product-desc {
+    padding: 0 20px;
+    color: var(--gray-4);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    height: 60px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.product-price {
+    padding: 0 20px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 15px;
+}
+
+.calc-quick-btn {
+    margin: 0 20px 20px;
+    padding: 10px;
+    width: calc(100% - 40px);
+    background: var(--gray-1);
+    border: 1px solid var(--gray-2);
+    color: var(--primary);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 500;
+}
+
+.calc-quick-btn:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+/* ===== 计算器 ===== */
+.calculator {
+    background: var(--light);
+    padding: 80px 5%;
+}
+
+.calculator h2 {
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 2.5rem;
+    color: var(--dark);
+    position: relative;
+}
+
+.calculator h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--secondary);
+    margin: 15px auto 0;
+    border-radius: 2px;
+}
+
+.calculator-form {
+    max-width: 700px;
+    margin: 0 auto;
+    background: var(--gray-1);
+    padding: 40px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--dark);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid var(--gray-2);
+    border-radius: var(--radius);
+    font-size: 16px;
+    transition: var(--transition);
+    background: var(--light);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.1);
+}
+
+.calc-btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.calc-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.result-box {
+    margin-top: 30px;
+    padding: 25px;
+    background: var(--light);
+    border-radius: var(--radius);
+    border-left: 4px solid var(--success);
+    box-shadow: var(--shadow-sm);
+}
+
+.result-box h3 {
+    color: var(--success);
+    margin-bottom: 15px;
+    font-size: 1.3rem;
+}
+
+.result-box p {
+    margin: 10px 0;
+    font-size: 1.1rem;
+}
+
+.result-box strong {
+    color: var(--dark);
+}
+
+/* ===== 联系我们 ===== */
+.contact {
+    padding: 80px 5%;
+    background: linear-gradient(135deg, var(--dark), #1a2b4c);
+    color: white;
+    text-align: center;
+}
+
+.contact h2 {
+    margin-bottom: 40px;
+    font-size: 2.5rem;
+    position: relative;
+}
+
+.contact h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--secondary);
+    margin: 15px auto 0;
+    border-radius: 2px;
+}
+
+.contact-info {
+    max-width: 600px;
+    margin: 0 auto;
+    background: rgba(255,255,255,0.1);
+    padding: 40px;
+    border-radius: var(--radius);
+    backdrop-filter: blur(10px);
+}
+
+.contact-info p {
+    font-size: 1.2rem;
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.contact-info i {
+    color: var(--secondary);
+}
+
+/* ===== 页脚 ===== */
+footer {
+    background: var(--dark);
+    color: var(--gray-3);
+    text-align: center;
+    padding: 30px;
+    font-size: 0.95rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+/* ===== 响应式设计 ===== */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .nav-links {
+        gap: 1.2rem;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .hero p {
+        font-size: 1.1rem;
+    }
+    
+    .product-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+    
+    .language-switcher {
+        top: 10px;
+        right: 10px;
+    }
+}

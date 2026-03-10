@@ -1,0 +1,48 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name_zh": "工程挖掘机",
+      "name_ru": "Экскаватор",
+      "description_zh": "高效节能，适用于各种建筑工地",
+      "description_ru": "Эффективный и экономичный, подходит для любых строительных площадок",
+      "price": 25000,
+      "image": "images/products/excavator.jpg",
+      "category": "machinery",
+      "weight": 8000
+    },
+    {
+      "id": 2,
+      "name_zh": "棉纺织品",
+      "name_ru": "Хлопчатобумажные ткани",
+      "description_zh": "优质棉纱，柔软舒适",
+      "description_ru": "Высококачественная хлопчатобумажная пряжа, мягкая и удобная",
+      "price": 800,
+      "image": "images/products/textiles.jpg",
+      "category": "textiles",
+      "weight": 50
+    },
+    {
+      "id": 3,
+      "name_zh": "太阳能电池板",
+      "name_ru": "Солнечные панели",
+      "description_zh": "高效转换率，耐用防水",
+      "description_ru": "Высокая эффективность, прочный и водонепроницаемый",
+      "price": 1200,
+      "image": "images/products/solar.jpg",
+      "category": "machinery",
+      "weight": 25
+    },
+    {
+      "id": 4,
+      "name_zh": "方便面",
+      "name_ru": "Лапша быстрого приготовления",
+      "description_zh": "多种口味，方便携带",
+      "description_ru": "Различные вкусы, удобно носить с собой",
+      "price": 50,
+      "image": "images/products/noodles.jpg",
+      "category": "food",
+      "weight": 10
+    }
+  ]
+}

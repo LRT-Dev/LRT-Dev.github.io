@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-i18n="site_title">中亚贸易网 - 中国到中亚五国</title>
+    <!-- 引用CSS - 注意路径加了 css/ -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+   </head>
+<body>
+
+    <!-- 语言切换按钮 -->
+    <div class="language-switcher">
+        <button onclick="changeLanguage('zh')" class="lang-btn active" id="lang-zh">中文</button>
+        <button onclick="changeLanguage('ru')" class="lang-btn" id="lang-ru">Русский</button>
+    </div>
+
+        <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="logo" data-i18n="site_logo">中亚贸易网</div>
+        <ul class="nav-links">
+            <li><a href="#home" data-i18n="nav_home">首页</a></li>
+            <li><a href="#products" data-i18n="nav_products">商品展示</a></li>
+            <li><a href="#calculator" data-i18n="nav_calculator">关税计算器</a></li>
+            <li><a href="#contact" data-i18n="nav_contact">联系我们</a></li>
+        </ul>
+    </nav>
+
+    <!-- 首页欢迎区 -->
+    <section id="home" class="hero">
+        <h1 data-i18n="hero_title">中国到中亚五国 · 一站式贸易服务</h1>
+        <p data-i18n="hero_desc">提供商品展示、关税计算、物流运输全流程支持</p>
+    </section>
+
+    <!-- 商品展示区（稍后会动态加载） -->
+    <section id="products" class="products">
+        <h2 data-i18n="products_title">热门商品</h2>
+        <div class="product-grid" id="product-list">
+            <!-- 这里稍后会用JavaScript动态加载商品 -->
+            <p data-i18n="loading">加载商品中...</p>
+        </div>
+    </section>
+
+    <!-- 关税计算器 -->
+    <section id="calculator" class="calculator">
+        <h2 data-i18n="calculator_title">关税运费计算器</h2>
+        <div class="calculator-form">
+            <div class="form-group">
+                <label data-i18n="calc_product_price">商品价格 (美元)</label>
+                <input type="number" id="product-price" placeholder="例如: 1000">
+            </div>
+            <div class="form-group">
+                <label data-i18n="calc_weight">重量 (kg)</label>
+                <input type="number" id="product-weight" placeholder="例如: 5">
+            </div>
+            <div class="form-group">
+                <label data-i18n="calc_country">目的国家</label>
+                <select id="country-select">
+                    <option value="kazakhstan" data-i18n="country_kz">哈萨克斯坦</option>
+                    <option value="uzbekistan" data-i18n="country_uz">乌兹别克斯坦</option>
+                    <option value="kyrgyzstan" data-i18n="country_kg">吉尔吉斯斯坦</option>
+                    <option value="tajikistan" data-i18n="country_tj">塔吉克斯坦</option>
+                    <option value="turkmenistan" data-i18n="country_tm">土库曼斯坦</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label data-i18n="calc_category">商品类别</label>
+                <select id="category-select">
+                    <option value="general" data-i18n="category_general">普通商品</option>
+                    <option value="machinery" data-i18n="category_machinery">机械设备</option>
+                    <option value="textiles" data-i18n="category_textiles">纺织品</option>
+                    <option value="food" data-i18n="category_food">食品</option>
+                </select>
+            </div>
+            <button onclick="calculateTariff()" class="calc-btn" data-i18n="calc_btn">计算总费用</button>
+            
+            <!-- 计算结果展示区 -->
+            <div id="result" class="result-box" style="display: none;">
+                <h3 data-i18n="result_title">计算结果</h3>
+                <div id="result-details"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 -->
+    <section id="contact" class="contact">
+        <h2 data-i18n="contact_title">联系我们</h2>
+        <p data-i18n="contact_email">邮箱: trade@example.com</p>
+        <p data-i18n="contact_phone">电话: +86 123 4567 890</p>
+    </section>
+
+    <footer>
+        <p data-i18n="footer_text">© 2024 中亚贸易网 - 中国到中亚五国贸易服务</p>
+    </footer>
+
+    <!-- 引入JavaScript文件 - 注意路径加了 js/ -->
+    <script src="js/translator.js"></script>
+    <script src="js/main.js"></script>
+    <!-- 注意：计算功能我们会在后面添加，现在先不引用 -->
+    
+</body>
+</html>

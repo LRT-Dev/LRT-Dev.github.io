@@ -1,0 +1,69 @@
+{
+  "countries": {
+    "kazakhstan": {
+      "name_zh": "哈萨克斯坦",
+      "name_ru": "Казахстан",
+      "base_rate": 0.086,
+      "vat_rate": 0.12,
+      "shipping_base": 10,
+      "special_rates": {
+        "machinery": 0.05,
+        "textiles": 0.12,
+        "food": 0.15,
+        "general": 0.086
+      }
+    },
+    "uzbekistan": {
+      "name_zh": "乌兹别克斯坦",
+      "name_ru": "Узбекистан",
+      "base_rate": 0.074,
+      "vat_rate": 0.12,
+      "shipping_base": 12,
+      "special_rates": {
+        "machinery": 0.05,
+        "textiles": 0.15,
+        "food": 0.12,
+        "general": 0.074
+      }
+    },
+    "kyrgyzstan": {
+      "name_zh": "吉尔吉斯斯坦",
+      "name_ru": "Кыргызстан",
+      "base_rate": 0.08,
+      "vat_rate": 0.12,
+      "shipping_base": 11,
+      "special_rates": {
+        "machinery": 0.05,
+        "textiles": 0.1,
+        "food": 0.12,
+        "general": 0.08
+      }
+    },
+    "tajikistan": {
+      "name_zh": "塔吉克斯坦",
+      "name_ru": "Таджикистан",
+      "base_rate": 0.08,
+      "vat_rate": 0.12,
+      "shipping_base": 14,
+      "special_rates": {
+        "machinery": 0.05,
+        "textiles": 0.12,
+        "food": 0.1,
+        "general": 0.08
+      }
+    },
+    "turkmenistan": {
+      "name_zh": "土库曼斯坦",
+      "name_ru": "Туркменистан",
+      "base_rate": 0.05,
+      "vat_rate": 0.12,
+      "shipping_base": 15,
+      "special_rates": {
+        "machinery": 0.03,
+        "textiles": 0.08,
+        "food": 0.08,
+        "general": 0.05
+      }
+    }
+  }
+}
