@@ -84,76 +84,80 @@
     </section>
     
     <!-- 运费查询计算器（新增） -->
-    <section id="shipping" class="calculator" style="margin-top: 40px; background: #f8f9fa;">
-        <h2>🚚 运费参考查询</h2>
-        <div class="calculator-form">
-            <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                <div class="form-group">
-                    <label>始发城市</label>
-                    <select id="origin-city">
-                        <option value="tianjin">天津</option>
-                        <option value="qingdao">青岛</option>
-                        <option value="shanghai">上海</option>
-                        <option value="shenzhen">深圳</option>
-                        <option value="yiwu">义乌</option>
-                        <option value="urumqi">乌鲁木齐</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>目的国家</label>
-                    <select id="dest-country" onchange="updateDestCity()">
-                        <option value="kazakhstan">哈萨克斯坦</option>
-                        <option value="uzbekistan">乌兹别克斯坦</option>
-                        <option value="kyrgyzstan">吉尔吉斯斯坦</option>
-                        <option value="tajikistan">塔吉克斯坦</option>
-                        <option value="turkmenistan">土库曼斯坦</option>
-                    </select>
-                </div>
+<section id="shipping" class="calculator" style="margin-top: 40px; background: #f8f9fa;">
+    <h2 data-i18n="shipping_title">🚚 运费参考查询</h2>
+    <div class="calculator-form">
+        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div class="form-group">
+                <label data-i18n="origin_city">始发城市</label>
+                <select id="origin-city">
+                    <option value="tianjin">天津</option>
+                    <option value="qingdao">青岛</option>
+                    <option value="shanghai">上海</option>
+                    <option value="shenzhen">深圳</option>
+                    <option value="yiwu">义乌</option>
+                    <option value="urumqi">乌鲁木齐</option>
+                    <option value="xian">西安</option>
+                    <option value="chengdu">成都</option>
+                    <option value="khorgos">霍尔果斯</option>
+                    <option value="kashi">喀什</option>
+                </select>
             </div>
-            
-            <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                <div class="form-group">
-                    <label>目的城市</label>
-                    <select id="dest-city">
-                        <!-- 会通过JS动态加载 -->
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>运输方式</label>
-                    <select id="transport-mode">
-                        <option value="sea_rail">海铁联运</option>
-                        <option value="rail">铁路运输</option>
-                        <option value="road">公路运输</option>
-                        <option value="air_road">空陆联运</option>
-                    </select>
-                </div>
-            </div>
-            
-            <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                <div class="form-group">
-                    <label>货物类型</label>
-                    <select id="cargo-type">
-                        <option value="20gp">20尺集装箱</option>
-                        <option value="40gp">40尺集装箱</option>
-                        <option value="ltl">拼箱 (按公斤)</option>
-                        <option value="bulk">散货 (按吨)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>数量</label>
-                    <input type="number" id="cargo-quantity" placeholder="例如: 1" value="1">
-                </div>
-            </div>
-            
-            <button onclick="calculateShipping()" class="calc-btn">查询运费参考</button>
-            
-            <!-- 结果显示区 -->
-            <div id="shipping-result" class="result-box" style="display: none; margin-top: 20px;">
-                <h3>运费估算结果</h3>
-                <div id="shipping-details"></div>
+            <div class="form-group">
+                <label data-i18n="dest_country">目的国家</label>
+                <select id="dest-country" onchange="updateDestCity()">
+                    <option value="kazakhstan" data-i18n="country_kz">哈萨克斯坦</option>
+                    <option value="uzbekistan" data-i18n="country_uz">乌兹别克斯坦</option>
+                    <option value="kyrgyzstan" data-i18n="country_kg">吉尔吉斯斯坦</option>
+                    <option value="tajikistan" data-i18n="country_tj">塔吉克斯坦</option>
+                    <option value="turkmenistan" data-i18n="country_tm">土库曼斯坦</option>
+                </select>
             </div>
         </div>
-    </section>
+        
+        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div class="form-group">
+                <label data-i18n="dest_city">目的城市</label>
+                <select id="dest-city">
+                    <!-- 会通过JS动态加载 -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label data-i18n="transport_mode">运输方式</label>
+                <select id="transport-mode">
+                    <option value="rail" data-i18n="rail">铁路运输</option>
+                    <option value="road" data-i18n="road">公路运输</option>
+                    <option value="sea_rail" data-i18n="sea_rail">海铁联运</option>
+                    <option value="air_road" data-i18n="air_road">空陆联运</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div class="form-group">
+                <label data-i18n="cargo_type">货物类型</label>
+                <select id="cargo-type">
+                    <option value="20gp" data-i18n="container_20">20尺集装箱</option>
+                    <option value="40gp" data-i18n="container_40">40尺集装箱</option>
+                    <option value="ltl" data-i18n="ltl">拼箱 (按公斤)</option>
+                    <option value="bulk" data-i18n="bulk">散货 (按吨)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label data-i18n="quantity">数量</label>
+                <input type="number" id="cargo-quantity" placeholder="例如: 1" value="1" min="0.1" step="0.1">
+            </div>
+        </div>
+        
+        <button onclick="calculateShipping()" class="calc-btn" data-i18n="shipping_btn">查询运费参考</button>
+        
+        <!-- 结果显示区 -->
+        <div id="shipping-result" class="result-box" style="display: none; margin-top: 20px;">
+            <h3 data-i18n="shipping_result_title">运费估算结果</h3>
+            <div id="shipping-details"></div>
+        </div>
+    </div>
+</section>
 
     <!-- 联系我们 & 预约服务（合并版） -->
     <section id="contact" class="contact-section">

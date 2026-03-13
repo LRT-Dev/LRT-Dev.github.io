@@ -212,6 +212,7 @@ window.calculateTariff = function() {
 const cityMap = {
     'tianjin': '天津', 'qingdao': '青岛', 'shanghai': '上海', 'shenzhen': '深圳',
     'yiwu': '义乌', 'urumqi': '乌鲁木齐', 'khorgos': '霍尔果斯', 'xinjiang': '新疆口岸',
+    'xian': '西安', 'chengdu': '成都', 'kashi': '喀什',
     'almaty': '阿拉木图', 'astana': '阿斯塔纳', 'dostyk': '多斯特克',
     'tashkent': '塔什干', 'bishkek': '比什凯克', 'dushanbe': '杜尚别', 'ashgabat': '阿什哈巴德'
 };
@@ -260,69 +261,7 @@ window.updateDestCity = function() {
     });
 }
 
-// 获取运费参考
-async function getShippingHint(origin, destination, mode, cargoType, quantity) {
-    const routes = await loadShippingRates();
-    
-    const originCn = cityMap[origin] || origin;
-    const destCn = cityMap[destination] || destination;
-    
-    const matches = routes.filter(route => {
-        const originMatch = route.origin.includes(originCn) || originCn.includes(route.origin);
-        const destMatch = route.destination.includes(destCn) || destCn.includes(route.destination);
-        const modeMatch = route.mode.includes(mode) || mode.includes(route.mode);
-        return originMatch && destMatch && modeMatch;
-    });
-    
-    if (matches.length === 0) {
-        return { hasReference: false, hint: '⚠️ 未找到匹配的运费参考数据', details: '' };
-    }
-    
-    let totalRate = 0;
-    let count = 0;
-    let sources = [];
-    let dates = [];
-    
-    matches.forEach(route => {
-        if (cargoType === '20gp' && route.rate_20gp) {
-            totalRate += route.rate_20gp;
-            count++;
-            sources.push(`${route.source} ($${route.rate_20gp})`);
-            if (route.source_date) dates.push(route.source_date);
-        } else if (cargoType === '40gp' && route.rate_40gp) {
-            totalRate += route.rate_40gp;
-            count++;
-            sources.push(`${route.source} ($${route.rate_40gp})`);
-            if (route.source_date) dates.push(route.source_date);
-        } else if (cargoType === 'ltl' && route.rate_per_kg) {
-            totalRate += route.rate_per_kg;
-            count++;
-            sources.push(`${route.source} ($${route.rate_per_kg}/kg)`);
-            if (route.source_date) dates.push(route.source_date);
-        } else if (cargoType === 'bulk' && route.rate_per_ton) {
-            totalRate += route.rate_per_ton;
-            count++;
-            sources.push(`${route.source} ($${route.rate_per_ton}/吨)`);
-            if (route.source_date) dates.push(route.source_date);
-        }
-    });
-    
-    if (count === 0) {
-        return { hasReference: false, hint: '⚠️ 该货物类型无匹配参考数据', details: '' };
-    }
-    
-    const avgRate = totalRate / count;
-    const latestDate = dates.sort().reverse()[0] || '近期';
-    
-    return {
-        hasReference: true,
-        avgRate: avgRate,
-        hint: `📊 参考价: $${avgRate.toFixed(2)} (基于${count}家货代公司报价，${latestDate})`,
-        details: sources.join('；')
-    };
-}
-
-// 运费计算主函数
+// ===== 增强版运费查询函数 =====
 window.calculateShipping = async function() {
     const origin = document.getElementById('origin-city').value;
     const destCity = document.getElementById('dest-city').value;
@@ -340,62 +279,240 @@ window.calculateShipping = async function() {
     resultDiv.style.display = 'block';
     detailsDiv.innerHTML = '<p>正在查询运费参考数据...</p>';
     
-    const hint = await getShippingHint(origin, destCity, mode, cargoType, quantity);
-    
-    let estimatedCost = 0;
-    if (hint.hasReference) {
-        estimatedCost = hint.avgRate * quantity;
-    } else {
-        const defaultRates = {
-            'sea_rail': { '20gp': 5000, '40gp': 9000 },
-            'rail': { '20gp': 4500, '40gp': 8500 },
-            'road': { '20gp': 4000, '40gp': 7500 },
-            'air_road': { 'ltl': 10 }
-        };
-        
-        if (defaultRates[mode] && defaultRates[mode][cargoType]) {
-            estimatedCost = defaultRates[mode][cargoType] * quantity;
-        } else {
-            estimatedCost = 5000 * quantity;
-        }
-    }
-    
+    // 获取当前语言
     const currentLang = localStorage.getItem('preferred_language') || 'zh';
     
-    let html = '';
-    if (currentLang === 'zh') {
-        html = `
-            <div style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px;">
-                <p><strong>路线:</strong> ${cityMap[origin] || origin} → ${cityMap[destCity] || destCity}</p>
-                <p><strong>运输方式:</strong> ${modeNames[mode] || mode}</p>
-                <p><strong>估算运费:</strong> $${estimatedCost.toFixed(2)}</p>
-            </div>
-            <div style="margin-top: 15px; padding: 12px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px;">
-                <p style="margin: 0; color: #856404; font-size: 0.95rem;">
-                    <strong>💡 参考提示</strong><br>
-                    ${hint.hint}
-                </p>
-                ${hint.details ? `
-                <p style="margin: 8px 0 0 0; font-size: 0.85rem; color: #666;">
-                    <strong>数据来源:</strong> ${hint.details}
-                </p>
-                ` : ''}
-                <p style="margin: 8px 0 0 0; font-size: 0.8rem; color: #999;">
-                    ⚠️ 以上为市场参考价，实际运费以货代公司报价为准
-                </p>
-            </div>
-        `;
-    } else {
-        html = `<p>运费估算结果（俄语版本待补充）</p>`;
-    }
+    // 获取运费参考
+    const hint = await getShippingHintEnhanced(origin, destCity, mode, cargoType, quantity);
     
-    detailsDiv.innerHTML = html;
+    if (hint.hasReference) {
+        let html = '';
+        if (currentLang === 'zh') {
+            html = `
+                <div style="border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 15px;">
+                    <p><strong>运输路线：</strong> ${getCityName(origin)} → ${getCityName(destCity)}</p>
+                    <p><strong>运输方式：</strong> ${getModeName(mode)}</p>
+                    <p><strong>货物类型：</strong> ${getCargoTypeName(cargoType)}</p>
+                    <p><strong>数量：</strong> ${quantity} ${getUnit(cargoType)}</p>
+                    <p><strong style="font-size: 1.2rem; color: #1e3c72;">估算运费： $${hint.estimatedTotal.toFixed(2)}</strong></p>
+                    ${hint.carrier ? `<p><strong>承运商：</strong> ${hint.carrier}</p>` : ''}
+                    ${hint.transitTime ? `<p><strong>运输时效：</strong> ${hint.transitTime}</p>` : ''}
+                </div>
+                <div style="margin-top: 15px; padding: 12px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px;">
+                    <p style="margin: 0; color: #856404; font-size: 0.95rem;">
+                        <strong>💡 参考提示</strong><br>
+                        ${hint.hint}
+                    </p>
+                    ${hint.details ? `
+                    <p style="margin: 8px 0 0 0; font-size: 0.85rem; color: #666;">
+                        <strong>数据来源：</strong> ${hint.details}
+                    </p>
+                    ` : ''}
+                    <p style="margin: 8px 0 0 0; font-size: 0.8rem; color: #999;">
+                        ⚠️ 以上为市场参考价，实际运费以货代公司报价为准，含燃油附加费、报关费
+                    </p>
+                </div>
+            `;
+        } else {
+            html = `
+                <div style="border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 15px;">
+                    <p><strong>Маршрут:</strong> ${getCityName(origin, 'ru')} → ${getCityName(destCity, 'ru')}</p>
+                    <p><strong>Способ доставки:</strong> ${getModeName(mode, 'ru')}</p>
+                    <p><strong>Тип груза:</strong> ${getCargoTypeName(cargoType, 'ru')}</p>
+                    <p><strong>Количество:</strong> ${quantity} ${getUnit(cargoType, 'ru')}</p>
+                    <p><strong style="font-size: 1.2rem; color: #1e3c72;">Ориентировочная стоимость: $${hint.estimatedTotal.toFixed(2)}</strong></p>
+                    ${hint.carrier ? `<p><strong>Перевозчик:</strong> ${hint.carrier}</p>` : ''}
+                    ${hint.transitTime ? `<p><strong>Срок доставки:</strong> ${hint.transitTime}</p>` : ''}
+                </div>
+                <div style="margin-top: 15px; padding: 12px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 4px;">
+                    <p style="margin: 0; color: #856404; font-size: 0.95rem;">
+                        <strong>💡 Справочная информация</strong><br>
+                        ${hint.hint}
+                    </p>
+                    ${hint.details ? `
+                    <p style="margin: 8px 0 0 0; font-size: 0.85rem; color: #666;">
+                        <strong>Источник данных:</strong> ${hint.details}
+                    </p>
+                    ` : ''}
+                    <p style="margin: 8px 0 0 0; font-size: 0.8rem; color: #999;">
+                        ⚠️ Цены справочные, включают топливный сбор и таможенное оформление
+                    </p>
+                </div>
+            `;
+        }
+        detailsDiv.innerHTML = html;
+    } else {
+        detailsDiv.innerHTML = `<p>${hint.hint}</p>`;
+    }
 };
 
-// 监听语言切换
-document.addEventListener('languageChanged', function(e) {
-    displayProducts();
-});
+// 增强版获取运费参考
+async function getShippingHintEnhanced(origin, destination, mode, cargoType, quantity) {
+    try {
+        const routes = await loadShippingRates();
+        
+        const originCn = cityMap[origin] || origin;
+        const destCn = cityMap[destination] || destination;
+        
+        // 更智能的匹配逻辑
+        const matches = routes.filter(route => {
+            const originMatch = route.origin.includes(originCn) || originCn.includes(route.origin);
+            const destMatch = route.destination.includes(destCn) || destCn.includes(route.destination);
+            const modeMatch = route.mode === mode || route.mode.includes(mode) || mode.includes(route.mode);
+            return originMatch && destMatch && modeMatch;
+        });
+        
+        if (matches.length === 0) {
+            // 如果没有精确匹配，尝试只匹配国家和运输方式
+            const countryMatches = routes.filter(route => {
+                const destMatch = route.destination.includes(destCn) || destCn.includes(route.destination);
+                const modeMatch = route.mode === mode || route.mode.includes(mode) || mode.includes(route.mode);
+                return destMatch && modeMatch;
+            });
+            
+            if (countryMatches.length > 0) {
+                return calculateAverageRate(countryMatches, cargoType, quantity, '仅匹配到目的国家');
+            }
+            
+            return {
+                hasReference: false,
+                hint: '⚠️ 未找到匹配的运费参考数据，请尝试其他运输方式或联系客服获取报价'
+            };
+        }
+        
+        return calculateAverageRate(matches, cargoType, quantity, '精确匹配');
+        
+    } catch (error) {
+        console.error('获取运费参考失败:', error);
+        return {
+            hasReference: false,
+            hint: '⚠️ 运费数据加载失败，请稍后重试'
+        };
+    }
+}
+
+// 计算平均费率
+function calculateAverageRate(routes, cargoType, quantity, matchType) {
+    let totalRate = 0;
+    let count = 0;
+    let sources = [];
+    let carriers = new Set();
+    let transitTimes = new Set();
+    
+    routes.forEach(route => {
+        let rate = null;
+        if (cargoType === '20gp' && route.rate_20gp) {
+            rate = route.rate_20gp;
+        } else if (cargoType === '40gp' && route.rate_40gp) {
+            rate = route.rate_40gp;
+        } else if (cargoType === 'ltl' && route.rate_per_kg) {
+            rate = route.rate_per_kg;
+        } else if (cargoType === 'bulk' && route.rate_per_ton) {
+            rate = route.rate_per_ton;
+        }
+        
+        if (rate) {
+            totalRate += rate;
+            count++;
+            sources.push(`${route.carrier || route.source} ($${rate})`);
+            if (route.carrier) carriers.add(route.carrier);
+            if (route.transit_time) transitTimes.add(route.transit_time);
+        }
+    });
+    
+    if (count === 0) {
+        return {
+            hasReference: false,
+            hint: '⚠️ 该货物类型暂无匹配的参考数据'
+        };
+    }
+    
+    const avgRate = totalRate / count;
+    const estimatedTotal = avgRate * quantity;
+    const latestDate = routes[0]?.source_date || '近期';
+    
+    // 获取货币单位
+    const currency = routes[0]?.currency || 'USD';
+    
+    let hintText = `📊 参考价: ${currency === 'CNY' ? '¥' : '$'}${avgRate.toFixed(2)}`;
+    if (cargoType === 'ltl') hintText += '/kg';
+    else if (cargoType === 'bulk') hintText += '/吨';
+    
+    hintText += ` (基于${count}家货代公司报价，${latestDate})`;
+    if (matchType === '仅匹配到目的国家') {
+        hintText += '，未精确匹配到城市';
+    }
+    
+    return {
+        hasReference: true,
+        estimatedTotal: estimatedTotal,
+        avgRate: avgRate,
+        carrier: Array.from(carriers).join(', '),
+        transitTime: Array.from(transitTimes).join(', '),
+        hint: hintText,
+        details: sources.join('；')
+    };
+}
+
+// 辅助函数：获取城市名称
+function getCityName(cityCode, lang = 'zh') {
+    const cityNames = {
+        'zh': {
+            'tianjin': '天津', 'qingdao': '青岛', 'shanghai': '上海', 'shenzhen': '深圳',
+            'yiwu': '义乌', 'urumqi': '乌鲁木齐', 'xian': '西安', 'chengdu': '成都',
+            'khorgos': '霍尔果斯', 'kashi': '喀什', 'xinjiang': '新疆口岸',
+            'almaty': '阿拉木图', 'astana': '阿斯塔纳', 'dostyk': '多斯特克',
+            'tashkent': '塔什干', 'bishkek': '比什凯克', 'dushanbe': '杜尚别', 'ashgabat': '阿什哈巴德'
+        },
+        'ru': {
+            'tianjin': 'Тяньцзинь', 'qingdao': 'Циндао', 'shanghai': 'Шанхай', 'shenzhen': 'Шэньчжэнь',
+            'yiwu': 'Иу', 'urumqi': 'Урумчи', 'xian': 'Сиань', 'chengdu': 'Чэнду',
+            'khorgos': 'Хоргос', 'kashi': 'Кашгар', 'xinjiang': 'Синьцзян',
+            'almaty': 'Алматы', 'astana': 'Астана', 'dostyk': 'Достык',
+            'tashkent': 'Ташкент', 'bishkek': 'Бишкек', 'dushanbe': 'Душанбе', 'ashgabat': 'Ашхабад'
+        }
+    };
+    return cityNames[lang][cityCode] || cityCode;
+}
+
+// 辅助函数：获取运输方式名称
+function getModeName(mode, lang = 'zh') {
+    const modeNames = {
+        'zh': {
+            'rail': '铁路运输', 'road': '公路运输', 'sea_rail': '海铁联运', 'air_road': '空陆联运'
+        },
+        'ru': {
+            'rail': 'Железная дорога', 'road': 'Автотранспорт', 'sea_rail': 'Море + ЖД', 'air_road': 'Авиа + Авто'
+        }
+    };
+    return modeNames[lang][mode] || mode;
+}
+
+// 辅助函数：获取货物类型名称
+function getCargoTypeName(type, lang = 'zh') {
+    const typeNames = {
+        'zh': {
+            '20gp': '20尺集装箱', '40gp': '40尺集装箱', 'ltl': '拼箱', 'bulk': '散货'
+        },
+        'ru': {
+            '20gp': '20-футовый контейнер', '40gp': '40-футовый контейнер', 'ltl': 'Сборный груз', 'bulk': 'Насыпной груз'
+        }
+    };
+    return typeNames[lang][type] || type;
+}
+
+// 辅助函数：获取单位
+function getUnit(type, lang = 'zh') {
+    if (type === '20gp' || type === '40gp') {
+        return lang === 'zh' ? '个' : 'шт';
+    } else if (type === 'ltl') {
+        return lang === 'zh' ? '公斤' : 'кг';
+    } else if (type === 'bulk') {
+        return lang === 'zh' ? '吨' : 'т';
+    }
+    return '';
+}
+
 // ===== 全程陪同服务表单处理 =====
 document.addEventListener('DOMContentLoaded', function() {
     const accompanyForm = document.getElementById('accompany-form');
@@ -443,3 +560,8 @@ function sendToEmail(formData) {
     // 例如：fetch('/api/send-email', { method: 'POST', body: JSON.stringify(formData) })
     alert('预约已提交，我们会尽快联系您！');
 }
+
+// 监听语言切换
+document.addEventListener('languageChanged', function(e) {
+    displayProducts();
+});

@@ -30,7 +30,7 @@ body {
 /* ===== 语言切换器 ===== */
 .language-switcher {
     position: fixed;
-    top: 20px;
+    top: 100px;  /* 从20px改为100px，向下移动避开导航栏 */
     right: 20px;
     z-index: 1000;
     background: rgba(255, 255, 255, 0.9);
@@ -961,5 +961,11 @@ footer {
     
     .checkbox-group {
         grid-template-columns: 1fr;
+    }
+    
+    /* 移动端语言切换器调整 */
+    .language-switcher {
+        top: 80px;  /* 移动端也相应下移 */
+        right: 10px;
     }
 }
