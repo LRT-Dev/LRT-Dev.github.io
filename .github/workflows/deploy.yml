@@ -1,0 +1,21 @@
+name: 自动部署网站
+
+# 触发条件：当您把代码推送到 main 分支时自动运行
+on:
+  push:
+    branches: [ "main" ]  # 如果您用的是master分支，改成 master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. 拉取您的代码
+      - name: 拉取代码
+        uses: actions/checkout@v3
+
+      # 2. 直接把文件部署到 GitHub Pages
+      - name: 部署到 GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: .  # 部署整个根目录
+          clean: true # 清理旧文件
