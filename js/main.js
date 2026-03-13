@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('dest-country')) {
         updateDestCity();
     }
+    // 初始化弹窗事件
+    setupModalEvents();
 });
 
 // ========== 商品展示相关 ==========
@@ -41,21 +43,21 @@ function displayProducts() {
         const desc = currentLang === 'zh' ? product.description_zh : product.description_ru;
         
         html += `
-    <div class="product-card">
-        <div class="product-image">
+    <div class="product-card" data-product-id="${product.id}" style="cursor: pointer;">
+        <div class="product-image" onclick="showProductDetail(${product.id})">
             <img src="${product.image || 'https://via.placeholder.com/300'}" 
                  alt="${name}" 
                  onerror="this.src='https://via.placeholder.com/300'">
             ${product.stock < 10 ? '<span class="stock-badge">库存紧张</span>' : ''}
         </div>
-        <h3>${name}</h3>
-        <p class="product-desc">${desc}</p>
-        <div class="price-section">
+        <h3 onclick="showProductDetail(${product.id})">${name}</h3>
+        <p class="product-desc" onclick="showProductDetail(${product.id})">${desc}</p>
+        <div class="price-section" onclick="showProductDetail(${product.id})">
             <span class="product-price">$${product.price.toLocaleString()}</span>
             <span class="product-weight">${product.weight}kg</span>
         </div>
-        ${product.hs_code ? `<div class="hs-badge">HS: ${product.hs_code}</div>` : ''}
-        <button onclick="quickCalculate(${product.id})" class="calc-quick-btn">
+        ${product.hs_code ? `<div class="hs-badge" onclick="showProductDetail(${product.id})">HS: ${product.hs_code}</div>` : ''}
+        <button onclick="event.stopPropagation(); quickCalculate(${product.id})" class="calc-quick-btn">
             ${currentLang === 'zh' ? '🚀 快速计算' : '🚀 Быстрый расчет'}
         </button>
     </div>
@@ -559,6 +561,103 @@ function sendToEmail(formData) {
     // 这里可以调用您的后端API
     // 例如：fetch('/api/send-email', { method: 'POST', body: JSON.stringify(formData) })
     alert('预约已提交，我们会尽快联系您！');
+}
+
+// ===== 商品详情弹窗功能 =====
+
+// 打开详情弹窗
+function showProductDetail(productId) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+    
+    const currentLang = localStorage.getItem('preferred_language') || 'zh';
+    const name = currentLang === 'zh' ? product.name_zh : product.name_ru;
+    const description = currentLang === 'zh' ? product.description_zh : product.description_ru;
+    
+    const modal = document.getElementById('product-modal');
+    const modalContent = document.getElementById('modal-product-detail');
+    
+    // 构建详情HTML
+    modalContent.innerHTML = `
+        <div class="product-detail">
+            <div class="product-detail-header">
+                <div class="product-detail-image">
+                    <img src="${product.image || 'https://via.placeholder.com/400'}" 
+                         alt="${name}"
+                         onerror="this.src='https://via.placeholder.com/400'">
+                </div>
+                <div class="product-detail-info">
+                    <h2>${name}</h2>
+                    <div class="product-detail-price">${product.price.toLocaleString()}</div>
+                    
+                    <div class="product-detail-specs">
+                        <div class="spec-item">
+                            <span class="spec-label">${currentLang === 'zh' ? 'HS编码' : 'HS код'}:</span>
+                            <span class="spec-value">${product.hs_code || 'N/A'}</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">${currentLang === 'zh' ? '重量' : 'Вес'}:</span>
+                            <span class="spec-value">${product.weight} kg</span>
+                        </div>
+                        <div class="spec-item">
+                            <span class="spec-label">${currentLang === 'zh' ? '类别' : 'Категория'}:</span>
+                            <span class="spec-value">${product.category || 'general'}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-detail-description">
+                <h3>${currentLang === 'zh' ? '商品描述' : 'Описание'}</h3>
+                <p>${description}</p>
+                ${product.features ? `
+                <ul style="margin-top: 15px; padding-left: 20px;">
+                    ${product.features.map(f => `<li>${f}</li>`).join('')}
+                </ul>
+                ` : ''}
+            </div>
+            
+            <div class="product-detail-actions">
+                <button onclick="quickCalculate(${product.id}); closeProductModal()" class="detail-calc-btn">
+                    ${currentLang === 'zh' ? '📊 快速计算关税' : '📊 Быстрый расчет'}
+                </button>
+                <a href="#contact" onclick="closeProductModal()" class="detail-contact-btn">
+                    ${currentLang === 'zh' ? '📞 咨询陪同服务' : '📞 Сопровождение'}
+                </a>
+            </div>
+        </div>
+    `;
+    
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden'; // 禁止背景滚动
+}
+
+// 关闭弹窗
+function closeProductModal() {
+    const modal = document.getElementById('product-modal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto'; // 恢复背景滚动
+    }
+}
+
+// 设置弹窗事件
+function setupModalEvents() {
+    const modal = document.getElementById('product-modal');
+    if (!modal) return;
+    
+    const closeBtn = document.querySelector('.close-modal');
+    
+    if (closeBtn) {
+        closeBtn.onclick = closeProductModal;
+    }
+    
+    // 点击空白区域关闭
+    modal.onclick = function(event) {
+        if (event.target === modal) {
+            closeProductModal();
+        }
+    };
 }
 
 // 监听语言切换
