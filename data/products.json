@@ -9,7 +9,9 @@
       "price": 25000,
       "image": "images/products/excavator.jpg",
       "category": "machinery",
-      "weight": 8000
+      "weight": 8000,
+      "hs_code": "842959",
+      "hs_description": "挖掘机"
     },
     {
       "id": 2,
@@ -20,7 +22,9 @@
       "price": 800,
       "image": "images/products/textiles.jpg",
       "category": "textiles",
-      "weight": 50
+      "weight": 50,
+      "hs_code": "520851",
+      "hs_description": "棉机织物"
     },
     {
       "id": 3,
@@ -31,7 +35,9 @@
       "price": 1200,
       "image": "images/products/solar.jpg",
       "category": "machinery",
-      "weight": 25
+      "weight": 25,
+      "hs_code": "854143",
+      "hs_description": "光伏电池组件"
     },
     {
       "id": 4,
@@ -42,7 +48,9 @@
       "price": 50,
       "image": "images/products/noodles.jpg",
       "category": "food",
-      "weight": 10
+      "weight": 10,
+      "hs_code": "190230",
+      "hs_description": "即食面"
     }
   ]
 }

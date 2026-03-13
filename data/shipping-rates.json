@@ -1,0 +1,127 @@
+{
+  "routes": [
+    {
+      "origin": "天津",
+      "destination": "塔什干",
+      "destination_country": "乌兹别克斯坦",
+      "mode": "sea_rail",
+      "rate_20gp": 5296,
+      "rate_40gp": 9922,
+      "rate_40hq": 9922,
+      "currency": "USD",
+      "source": "迪士国际货运代理",
+      "source_date": "2026-03-06",
+      "notes": "海铁联运，经阿拉山口口岸"
+    },
+    {
+      "origin": "天津",
+      "destination": "塔什干",
+      "destination_country": "乌兹别克斯坦",
+      "mode": "sea_rail",
+      "rate_20gp": 5246,
+      "rate_40gp": 9842,
+      "rate_40hq": 9842,
+      "currency": "USD",
+      "source": "哈德逊湾货运",
+      "source_date": "2026-03-06",
+      "notes": "班列资源优先，时效12-15天"
+    },
+    {
+      "origin": "天津",
+      "destination": "塔什干",
+      "destination_country": "乌兹别克斯坦",
+      "mode": "sea_rail",
+      "rate_20gp": 5280,
+      "rate_40gp": 9894,
+      "rate_40hq": 9894,
+      "currency": "USD",
+      "source": "子豚运输",
+      "source_date": "2026-03-06",
+      "notes": "数字化追踪，误差≤30分钟"
+    },
+    {
+      "origin": "天津",
+      "destination": "塔什干",
+      "destination_country": "乌兹别克斯坦",
+      "mode": "sea_rail",
+      "rate_20gp": 5157,
+      "rate_40gp": 9765,
+      "rate_40hq": 9765,
+      "currency": "USD",
+      "source": "途艾克斯",
+      "source_date": "2026-03-06",
+      "notes": "拼箱整合，低成本"
+    },
+    {
+      "origin": "青岛",
+      "destination": "塔什干",
+      "destination_country": "乌兹别克斯坦",
+      "mode": "rail",
+      "rate_20gp": 38500,
+      "currency": "CNY",
+      "source": "嘉瑞福货运",
+      "source_date": "2026-02-06",
+      "notes": "火车联运，青岛直达塔什干"
+    },
+    {
+      "origin": "青岛",
+      "destination": "比什凯克",
+      "destination_country": "吉尔吉斯斯坦",
+      "mode": "road",
+      "rate_20gp": 8317,
+      "currency": "CNY",
+      "source": "嘉瑞福货运",
+      "source_date": "2026-02-14",
+      "notes": "公路联运，经伊尔克口岸"
+    },
+    {
+      "origin": "深圳",
+      "destination": "阿什哈巴德",
+      "destination_country": "土库曼斯坦",
+      "mode": "rail",
+      "rate_per_ton": 280,
+      "rate_per_ton_max": 450,
+      "currency": "USD",
+      "source": "深圳货代市场",
+      "source_date": "2026-02",
+      "notes": "铁路联运，18-22天，适合50吨以上"
+    },
+    {
+      "origin": "深圳",
+      "destination": "阿什哈巴德",
+      "destination_country": "土库曼斯坦",
+      "mode": "air_road",
+      "rate_per_kg": 8,
+      "rate_per_kg_max": 12,
+      "currency": "USD",
+      "source": "深圳货代市场",
+      "source_date": "2026-02",
+      "notes": "空运+公路，7-10天，含关税预缴"
+    },
+    {
+      "origin": "新疆口岸",
+      "destination": "阿拉木图",
+      "destination_country": "哈萨克斯坦",
+      "mode": "road",
+      "rate_per_truck": 32000,
+      "currency": "CNY",
+      "source": "中国邮政招标",
+      "source_date": "2025-12",
+      "notes": "13.6米标准车厢，90立方"
+    },
+    {
+      "origin": "天津",
+      "destination": "多斯特克",
+      "destination_country": "哈萨克斯坦",
+      "mode": "sea_rail",
+      "rate_20gp": 5157,
+      "rate_40gp": 9765,
+      "currency": "USD",
+      "source": "迪士国际",
+      "source_date": "2026-03-06",
+      "notes": "天津→多斯特克口岸"
+    }
+  ],
+  
+  "last_updated": "2026-03-11"
+}

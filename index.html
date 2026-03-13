@@ -41,7 +41,129 @@
             <p data-i18n="loading">加载商品中...</p>
         </div>
     </section>
-
+<!-- 全程陪同服务（新增） -->
+<section id="accompany-service" class="service-section">
+    <h2>👥 全程陪同服务</h2>
+    <p class="service-subtitle">看中商品？我们带您去厂家实地考察，解决中国境内一切事务</p>
+    
+    <div class="service-features">
+        <div class="feature-card">
+            <div class="feature-icon">🏭</div>
+            <h3>厂家实地考察</h3>
+            <p>安排专车接送，陪同参观工厂，现场看货验货，与厂家直接洽谈</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">📄</div>
+            <h3>证件代办</h3>
+            <p>商务签证、邀请函、临时居留，全程协助办理</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">🏨</div>
+            <h3>食宿交通</h3>
+            <p>预订酒店、安排翻译、专车接送，让您专注采购</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">⚖️</div>
+            <h3>合同公证</h3>
+            <p>协助审核合同、公证服务、法律咨询，保障您的权益</p>
+        </div>
+    </div>
+    
+    <!-- 预约表单 -->
+    <div class="service-form-container">
+        <h3>📋 预约陪同服务</h3>
+        <form id="accompany-form" class="service-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>您的姓名 *</label>
+                    <input type="text" id="client-name" required placeholder="例如：Ali">
+                </div>
+                <div class="form-group">
+                    <label>联系电话/WhatsApp *</label>
+                    <input type="text" id="client-phone" required placeholder="+998 90 123 4567">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>国家 *</label>
+                    <select id="client-country" required>
+                        <option value="">请选择</option>
+                        <option value="kazakhstan">哈萨克斯坦</option>
+                        <option value="uzbekistan">乌兹别克斯坦</option>
+                        <option value="kyrgyzstan">吉尔吉斯斯坦</option>
+                        <option value="tajikistan">塔吉克斯坦</option>
+                        <option value="turkmenistan">土库曼斯坦</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>语言偏好</label>
+                    <select id="client-language">
+                        <option value="ru">俄语</option>
+                        <option value="en">英语</option>
+                        <option value="zh">中文</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>感兴趣的商品 *</label>
+                <select id="interested-product" required>
+                    <option value="">请选择商品</option>
+                    <option value="excavator">工程挖掘机</option>
+                    <option value="textiles">棉纺织品</option>
+                    <option value="solar">太阳能电池板</option>
+                    <option value="noodles">方便面</option>
+                    <option value="other">其他（请在备注说明）</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>预计来访时间</label>
+                <input type="month" id="visit-date">
+            </div>
+            
+            <div class="form-group">
+                <label>需要哪些协助？（可多选）</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="services" value="visa"> 签证邀请函</label>
+                    <label><input type="checkbox" name="services" value="hotel"> 酒店预订</label>
+                    <label><input type="checkbox" name="services" value="translator"> 翻译服务</label>
+                    <label><input type="checkbox" name="services" value="transport"> 接送机</label>
+                    <label><input type="checkbox" name="services" value="contract"> 合同审核</label>
+                    <label><input type="checkbox" name="services" value="factory"> 安排看厂</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>备注/特殊要求</label>
+                <textarea id="special-requests" rows="3" placeholder="请告诉我们您的具体需求..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>您希望如何联系？</label>
+                <select id="contact-method">
+                    <option value="whatsapp">WhatsApp</option>
+                    <option value="wechat">微信</option>
+                    <option value="telegram">Telegram</option>
+                    <option value="email">邮件</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="service-submit-btn">📤 提交预约</button>
+        </form>
+        
+        <!-- 提交成功提示 -->
+        <div id="service-success" class="service-success" style="display: none;">
+            <h4>✅ 预约已提交！</h4>
+            <p>我们的客户经理会在2小时内联系您</p>
+            <p>紧急情况请直接联系：<strong>+86 123 4567 890</strong> (微信同号)</p>
+        </div>
+    </div>
+</section>
     <!-- 关税计算器 -->
     <section id="calculator" class="calculator">
         <h2 data-i18n="calculator_title">关税运费计算器</h2>
@@ -82,20 +204,236 @@
             </div>
         </div>
     </section>
+    <!-- 运费查询计算器（新增） -->
+<section id="shipping" class="calculator" style="margin-top: 40px; background: #f8f9fa;">
+    <h2>🚚 运费参考查询</h2>
+    <div class="calculator-form">
+        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div class="form-group">
+                <label>始发城市</label>
+                <select id="origin-city">
+                    <option value="tianjin">天津</option>
+                    <option value="qingdao">青岛</option>
+                    <option value="shanghai">上海</option>
+                    <option value="shenzhen">深圳</option>
+                    <option value="yiwu">义乌</option>
+                    <option value="urumqi">乌鲁木齐</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>目的国家</label>
+                <select id="dest-country" onchange="updateDestCity()">
+                    <option value="kazakhstan">哈萨克斯坦</option>
+                    <option value="uzbekistan">乌兹别克斯坦</option>
+                    <option value="kyrgyzstan">吉尔吉斯斯坦</option>
+                    <option value="tajikistan">塔吉克斯坦</option>
+                    <option value="turkmenistan">土库曼斯坦</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div class="form-group">
+                <label>目的城市</label>
+                <select id="dest-city">
+                    <!-- 会通过JS动态加载 -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label>运输方式</label>
+                <select id="transport-mode">
+                    <option value="sea_rail">海铁联运</option>
+                    <option value="rail">铁路运输</option>
+                    <option value="road">公路运输</option>
+                    <option value="air_road">空陆联运</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div class="form-group">
+                <label>货物类型</label>
+                <select id="cargo-type">
+                    <option value="20gp">20尺集装箱</option>
+                    <option value="40gp">40尺集装箱</option>
+                    <option value="ltl">拼箱 (按公斤)</option>
+                    <option value="bulk">散货 (按吨)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>数量</label>
+                <input type="number" id="cargo-quantity" placeholder="例如: 1" value="1">
+            </div>
+        </div>
+        
+        <button onclick="calculateShipping()" class="calc-btn">查询运费参考</button>
+        
+        <!-- 结果显示区 -->
+        <div id="shipping-result" class="result-box" style="display: none; margin-top: 20px;">
+            <h3>运费估算结果</h3>
+            <div id="shipping-details"></div>
+        </div>
+    </div>
+</section>
 
     <!-- 联系我们 -->
-    <section id="contact" class="contact">
-        <h2 data-i18n="contact_title">联系我们</h2>
-        <p data-i18n="contact_email">邮箱: trade@example.com</p>
-        <p data-i18n="contact_phone">电话: +86 123 4567 890</p>
-    </section>
+   <!-- 联系我们 & 预约服务（合并版） -->
+<section id="contact" class="contact-section">
+    <h2 data-i18n="contact_title">📞 联系我们</h2>
+    <p class="contact-subtitle" data-i18n="contact_subtitle">有任何需求？我们为您解决中国境内一切事务</p>
+    
+    <div class="contact-container">
+        <!-- 左侧：联系方式 + 服务特色 -->
+        <div class="contact-info-card">
+            <h3 data-i18n="quick_contact">📱 快速联系</h3>
+            
+            <div class="contact-methods">
+                <div class="contact-item">
+                    <div class="contact-icon">📞</div>
+                    <div>
+                        <strong data-i18n="phone">电话</strong>
+                        <p>+86 123 4567 890</p>
+                        <small data-i18n="phone_hint">24小时紧急联系</small>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">✉️</div>
+                    <div>
+                        <strong data-i18n="email">邮箱</strong>
+                        <p>trade@example.com</p>
+                        <small data-i18n="email_hint">2小时内回复</small>
+                    </div>
+                </div>
+                
+                <div class="contact-item">
+                    <div class="contact-icon">💬</div>
+                    <div>
+                        <strong data-i18n="messenger">即时通讯</strong>
+                        <p>WhatsApp / WeChat / Telegram</p>
+                        <small>+86 123 4567 890</small>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 服务特色标签 -->
+            <div class="service-tags">
+                <h4 data-i18n="our_services">🌟 我们提供的服务：</h4>
+                <div class="tags">
+                    <span class="tag" data-i18n="service_factory">🏭 厂家考察</span>
+                    <span class="tag" data-i18n="service_visa">📄 签证邀请函</span>
+                    <span class="tag" data-i18n="service_translator">🗣️ 翻译陪同</span>
+                    <span class="tag" data-i18n="service_transport">🚗 接送机</span>
+                    <span class="tag" data-i18n="service_hotel">🏨 酒店预订</span>
+                    <span class="tag" data-i18n="service_contract">⚖️ 合同公证</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 右侧：预约表单 -->
+        <div class="contact-form-card">
+            <h3 data-i18n="service_form_title">📋 预约陪同服务</h3>
+            <p class="form-intro" data-i18n="form_intro">请告诉我们您的需求，我们会尽快联系您</p>
+            
+            <form id="accompany-form" class="service-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label data-i18n="form_name">您的姓名 *</label>
+                        <input type="text" id="client-name" required placeholder="例如：Ali">
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="form_phone">联系电话/WhatsApp *</label>
+                        <input type="text" id="client-phone" required placeholder="+998 90 123 4567">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label data-i18n="form_country">国家 *</label>
+                        <select id="client-country" required>
+                            <option value="" data-i18n="select_country">请选择</option>
+                            <option value="kazakhstan" data-i18n="country_kz">哈萨克斯坦</option>
+                            <option value="uzbekistan" data-i18n="country_uz">乌兹别克斯坦</option>
+                            <option value="kyrgyzstan" data-i18n="country_kg">吉尔吉斯斯坦</option>
+                            <option value="tajikistan" data-i18n="country_tj">塔吉克斯坦</option>
+                            <option value="turkmenistan" data-i18n="country_tm">土库曼斯坦</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="form_language">语言偏好</label>
+                        <select id="client-language">
+                            <option value="ru" data-i18n="lang_ru">Русский</option>
+                            <option value="en" data-i18n="lang_en">English</option>
+                            <option value="zh" data-i18n="lang_zh">中文</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label data-i18n="form_product">感兴趣的商品 *</label>
+                    <select id="interested-product" required>
+                        <option value="" data-i18n="select_product">请选择商品</option>
+                        <option value="excavator" data-i18n="product_excavator">工程挖掘机</option>
+                        <option value="textiles" data-i18n="product_textiles">棉纺织品</option>
+                        <option value="solar" data-i18n="product_solar">太阳能电池板</option>
+                        <option value="noodles" data-i18n="product_noodles">方便面</option>
+                        <option value="other" data-i18n="product_other">其他（请在备注说明）</option>
+                    </select>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label data-i18n="form_visit_date">预计来访时间</label>
+                        <input type="month" id="visit-date">
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="form_contact_method">联系偏好</label>
+                        <select id="contact-method">
+                            <option value="whatsapp">WhatsApp</option>
+                            <option value="wechat">微信</option>
+                            <option value="telegram">Telegram</option>
+                            <option value="email">邮件</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label data-i18n="form_services">需要哪些协助？（可多选）</label>
+                    <div class="checkbox-group">
+                        <label><input type="checkbox" name="services" value="visa"> <span data-i18n="service_visa">签证邀请函</span></label>
+                        <label><input type="checkbox" name="services" value="hotel"> <span data-i18n="service_hotel">酒店预订</span></label>
+                        <label><input type="checkbox" name="services" value="translator"> <span data-i18n="service_translator">翻译服务</span></label>
+                        <label><input type="checkbox" name="services" value="transport"> <span data-i18n="service_transport">接送机</span></label>
+                        <label><input type="checkbox" name="services" value="contract"> <span data-i18n="service_contract">合同审核</span></label>
+                        <label><input type="checkbox" name="services" value="factory"> <span data-i18n="service_factory">安排看厂</span></label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label data-i18n="form_requests">备注/特殊要求</label>
+                    <textarea id="special-requests" rows="3" placeholder="请告诉我们您的具体需求..."></textarea>
+                </div>
+                
+                <button type="submit" class="service-submit-btn" data-i18n="form_submit">📤 提交预约</button>
+            </form>
+            
+            <!-- 提交成功提示 -->
+            <div id="service-success" class="service-success" style="display: none;">
+                <h4 data-i18n="service_success_title">✅ 预约已提交！</h4>
+                <p data-i18n="service_success_text">我们的客户经理会在2小时内联系您</p>
+                <p data-i18n="service_emergency">紧急情况请直接联系：<strong>+86 123 4567 890</strong> (微信同号)</p>
+            </div>
+        </div>
+    </div>
+</section>
 
     <footer>
         <p data-i18n="footer_text">© 2024 中亚贸易网 - 中国到中亚五国贸易服务</p>
     </footer>
 
-    <!-- 引入JavaScript文件 - 注意路径加了 js/ -->
+       <!-- 引入JavaScript文件 - 注意路径加了 js/ -->
     <script src="js/translator.js"></script>
+    <script src="js/tariff-api.js"></script>
     <script src="js/main.js"></script>
     <!-- 注意：计算功能我们会在后面添加，现在先不引用 -->
     

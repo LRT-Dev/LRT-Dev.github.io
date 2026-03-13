@@ -535,3 +535,431 @@ footer {
     padding: 40px;
     color: var(--gray);
 }
+/* ===== 全程陪同服务 ===== */
+.service-section {
+    padding: 80px 5%;
+    background: linear-gradient(135deg, #f8fafc, #e6f0fa);
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.service-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--dark);
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.service-section h2::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: var(--accent, #f4b41a);
+    margin: 15px auto 0;
+    border-radius: 2px;
+}
+
+.service-subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--gray, #64748b);
+    margin-bottom: 50px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.service-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.feature-card {
+    background: white;
+    padding: 30px 20px;
+    border-radius: var(--radius, 12px);
+    text-align: center;
+    box-shadow: var(--shadow-sm, 0 4px 6px -1px rgba(0,0,0,0.1));
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg, 0 20px 25px -5px rgba(0,0,0,0.1));
+}
+
+.feature-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.feature-card h3 {
+    font-size: 1.3rem;
+    color: var(--primary, #1e3c72);
+    margin-bottom: 10px;
+}
+
+.feature-card p {
+    color: var(--gray, #64748b);
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+/* 预约表单 */
+.service-form-container {
+    background: white;
+    padding: 40px;
+    border-radius: var(--radius, 12px);
+    box-shadow: var(--shadow-lg, 0 20px 25px -5px rgba(0,0,0,0.1));
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.service-form-container h3 {
+    font-size: 1.8rem;
+    color: var(--dark);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.service-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+    background: var(--gray-1, #f8fafc);
+    padding: 15px;
+    border-radius: var(--radius, 8px);
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: auto;
+    margin-right: 5px;
+}
+
+.service-submit-btn {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    padding: 16px 30px;
+    border: none;
+    border-radius: var(--radius, 8px);
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.service-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    background: linear-gradient(135deg, #2a5298, #1e3c72);
+}
+
+.service-success {
+    text-align: center;
+    padding: 40px;
+    background: #f0fdf4;
+    border-radius: var(--radius, 8px);
+    border-left: 4px solid #22c55e;
+    margin-top: 30px;
+}
+
+.service-success h4 {
+    font-size: 1.8rem;
+    color: #15803d;
+    margin-bottom: 15px;
+}
+
+.service-success p {
+    font-size: 1.1rem;
+    color: #166534;
+    margin: 10px 0;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .service-form-container {
+        padding: 25px;
+    }
+    
+    .checkbox-group {
+        grid-template-columns: 1fr;
+    }
+    
+    .service-section h2 {
+        font-size: 2rem;
+    }
+}
+/* ===== 联系我们 & 预约服务合并版 ===== */
+.contact-section {
+    padding: 80px 5%;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: white;
+}
+
+.contact-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.contact-section h2::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: #f4b41a;
+    margin: 15px auto 0;
+    border-radius: 2px;
+}
+
+.contact-subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #94a3b8;
+    margin-bottom: 50px;
+}
+
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* 左侧联系方式卡片 */
+.contact-info-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 35px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contact-info-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    color: #f4b41a;
+}
+
+.contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.contact-item {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+.contact-icon {
+    font-size: 2rem;
+    min-width: 50px;
+    text-align: center;
+}
+
+.contact-item strong {
+    font-size: 1.1rem;
+    color: #f4b41a;
+}
+
+.contact-item p {
+    font-size: 1.2rem;
+    margin: 5px 0;
+}
+
+.contact-item small {
+    color: #94a3b8;
+}
+
+/* 服务标签 */
+.service-tags h4 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: #f4b41a;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tag {
+    background: rgba(244, 180, 26, 0.2);
+    color: #f4b41a;
+    padding: 8px 15px;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    border: 1px solid rgba(244, 180, 26, 0.3);
+}
+
+/* 右侧表单卡片 */
+.contact-form-card {
+    background: white;
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.contact-form-card h3 {
+    font-size: 1.8rem;
+    color: #0f172a;
+    margin-bottom: 10px;
+}
+
+.form-intro {
+    color: #64748b;
+    margin-bottom: 25px;
+}
+
+/* 表单样式复用之前的，但做些调整 */
+.service-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #0f172a;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #1e3c72;
+    box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
+}
+
+.checkbox-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+    background: #f8fafc;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: auto;
+    margin-right: 5px;
+}
+
+.service-submit-btn {
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    color: white;
+    padding: 16px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.service-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.service-success {
+    text-align: center;
+    padding: 40px;
+    background: #f0fdf4;
+    border-radius: 10px;
+    border-left: 4px solid #22c55e;
+    margin-top: 20px;
+}
+
+.service-success h4 {
+    font-size: 1.5rem;
+    color: #15803d;
+    margin-bottom: 15px;
+}
+
+.service-success p {
+    color: #166534;
+}
+
+/* 响应式 */
+@media (max-width: 900px) {
+    .contact-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .checkbox-group {
+        grid-template-columns: 1fr;
+    }
+}
