@@ -856,231 +856,7 @@ body {
         font-size: 2rem;
     }
 }
-/* ===== 联系我们 & 预约服务合并版 ===== */
-.contact-section {
-    padding: 80px 5%;
-    background: linear-gradient(135deg, #0f172a, #1e293b);
-    color: white;
-}
 
-.contact-section h2 {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-    position: relative;
-}
-
-.contact-section h2::after {
-    content: '';
-    display: block;
-    width: 80px;
-    height: 4px;
-    background: #f4b41a;
-    margin: 15px auto 0;
-    border-radius: 2px;
-}
-
-.contact-subtitle {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #94a3b8;
-    margin-bottom: 50px;
-}
-
-.contact-container {
-    display: grid;
-    grid-template-columns: 1fr 1.5fr;
-    gap: 30px;
-    max-width: 1400px;
-    margin: 0 auto;
-}
-
-/* 左侧联系方式卡片 */
-.contact-info-card {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    padding: 35px;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.contact-info-card h3 {
-    font-size: 1.8rem;
-    margin-bottom: 30px;
-    color: #f4b41a;
-}
-
-.contact-methods {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-    margin-bottom: 40px;
-}
-
-.contact-item {
-    display: flex;
-    gap: 15px;
-    align-items: flex-start;
-}
-
-.contact-icon {
-    font-size: 2rem;
-    min-width: 50px;
-    text-align: center;
-}
-
-.contact-item strong {
-    font-size: 1.1rem;
-    color: #f4b41a;
-}
-
-.contact-item p {
-    font-size: 1.2rem;
-    margin: 5px 0;
-}
-
-.contact-item small {
-    color: #94a3b8;
-}
-
-/* 服务标签 */
-.service-tags h4 {
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-    color: #f4b41a;
-}
-
-.tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.tag {
-    background: rgba(244, 180, 26, 0.2);
-    color: #f4b41a;
-    padding: 8px 15px;
-    border-radius: 30px;
-    font-size: 0.9rem;
-    border: 1px solid rgba(244, 180, 26, 0.3);
-}
-
-/* 右侧表单卡片 */
-.contact-form-card {
-    background: white;
-    padding: 35px;
-    border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-}
-
-.contact-form-card h3 {
-    font-size: 1.8rem;
-    color: #0f172a;
-    margin-bottom: 10px;
-}
-
-.form-intro {
-    color: #64748b;
-    margin-bottom: 25px;
-}
-
-/* 表单样式复用之前的，但做些调整 */
-.service-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-    color: #0f172a;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 12px 15px;
-    border: 2px solid #e2e8f0;
-    border-radius: 10px;
-    font-size: 16px;
-    transition: all 0.3s ease;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: #1e3c72;
-    box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
-}
-
-.checkbox-group {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 12px;
-    background: #f8fafc;
-    padding: 15px;
-    border-radius: 10px;
-}
-
-.checkbox-group label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: normal;
-    cursor: pointer;
-}
-
-.checkbox-group input[type="checkbox"] {
-    width: auto;
-    margin-right: 5px;
-}
-
-.service-submit-btn {
-    background: linear-gradient(135deg, #1e3c72, #2a5298);
-    color: white;
-    padding: 16px;
-    border: none;
-    border-radius: 10px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 10px;
-}
-
-.service-submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-}
-
-.service-success {
-    text-align: center;
-    padding: 40px;
-    background: #f0fdf4;
-    border-radius: 10px;
-    border-left: 4px solid #22c55e;
-    margin-top: 20px;
-}
-
-.service-success h4 {
-    font-size: 1.5rem;
-    color: #15803d;
-    margin-bottom: 15px;
-}
-
-.service-success p {
-    color: #166534;
-}
 
 /* 响应式 */
 @media (max-width: 900px) {
@@ -1297,5 +1073,221 @@ body {
     
     .product-detail-actions {
         flex-direction: column;
+    }
+}
+/* ===== 服务承诺样式 ===== */
+.service-promise {
+    margin-top: 30px;
+    padding: 20px 15px;
+    background: linear-gradient(135deg, #fef9e7, #fff8e7);
+    border-radius: 15px;
+    border-left: 5px solid #f4b41a;
+    text-align: left;
+}
+
+.promise-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.promise-icon {
+    font-size: 2rem;
+    background: #f4b41a;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.promise-text {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #1e3c72;
+    line-height: 1.3;
+}
+
+.promise-detail p {
+    font-size: 1rem;
+    color: #2d3748;
+    margin: 0;
+    line-height: 1.5;
+    padding-left: 60px; /* 与上面的图标对齐 */
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .promise-text {
+        font-size: 1.1rem;
+    }
+    
+    .promise-detail p {
+        padding-left: 0;
+        margin-top: 10px;
+    }
+    
+    .promise-badge {
+        flex-wrap: wrap;
+    }
+}
+/* ===== 中亚铁路网络 ===== */
+.rail-network-section {
+    padding: 60px 5%;
+    background: linear-gradient(135deg, #f8fafc, #e6f0fa);
+    max-width: 1400px;
+    margin: 0 auto;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+}
+
+.rail-network-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.rail-network-section h2::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: var(--accent);
+    margin: 15px auto 0;
+    border-radius: 2px;
+}
+
+.rail-subtitle {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--gray);
+    margin-bottom: 40px;
+}
+
+/* 合作伙伴展示 */
+.partners-showcase {
+    margin-bottom: 50px;
+}
+
+.partners-showcase h3 {
+    font-size: 1.8rem;
+    color: var(--secondary);
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.partners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+    padding: 10px;
+}
+
+.partner-item {
+    background: white;
+    padding: 20px 15px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.partner-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--accent);
+}
+
+.partner-icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.partner-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 5px;
+}
+
+.partner-desc {
+    font-size: 0.8rem;
+    color: var(--gray);
+}
+
+/* 路线表格 */
+.routes-table-container {
+    margin-bottom: 30px;
+    overflow-x: auto;
+}
+
+.routes-table-container h3 {
+    font-size: 1.8rem;
+    color: var(--secondary);
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.routes-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
+.routes-table th {
+    background: var(--primary);
+    color: white;
+    padding: 15px 10px;
+    font-weight: 600;
+    text-align: left;
+}
+
+.routes-table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #e2e8f0;
+    color: var(--dark);
+}
+
+.routes-table tr:hover {
+    background: #f8fafc;
+}
+
+.routes-table tr:last-child td {
+    border-bottom: none;
+}
+
+.rail-note {
+    text-align: center;
+    padding: 15px;
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: #856404;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .routes-table {
+        font-size: 0.85rem;
+    }
+    
+    .routes-table th,
+    .routes-table td {
+        padding: 8px 5px;
+    }
+    
+    .partners-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 10px;
     }
 }

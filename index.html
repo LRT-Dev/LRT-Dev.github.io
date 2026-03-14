@@ -82,139 +82,270 @@
             </div>
         </div>
     </section>
+    <!-- 中亚铁路网络 - 真实线路展示 -->
+<section id="rail-network" class="rail-network-section">
+    <h2 data-i18n="rail_title">🚂 中国-中亚铁路网络</h2>
+    <p class="rail-subtitle" data-i18n="rail_subtitle">覆盖中亚五国的铁路运输线路，助您货物通达</p>
     
-    <!-- 运费查询计算器 -->
-    <section id="shipping" class="calculator" style="margin-top: 40px; background: #f8f9fa;">
-        <h2 data-i18n="shipping_title">🚚 运费参考查询</h2>
-        <div class="calculator-form">
-            <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                <div class="form-group">
-                    <label data-i18n="origin_city">始发城市</label>
-                    <select id="origin-city">
-                        <option value="tianjin">天津</option>
-                        <option value="qingdao">青岛</option>
-                        <option value="shanghai">上海</option>
-                        <option value="shenzhen">深圳</option>
-                        <option value="yiwu">义乌</option>
-                        <option value="urumqi">乌鲁木齐</option>
-                        <option value="xian">西安</option>
-                        <option value="chengdu">成都</option>
-                        <option value="khorgos">霍尔果斯</option>
-                        <option value="kashi">喀什</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label data-i18n="dest_country">目的国家</label>
-                    <select id="dest-country" onchange="updateDestCity()">
-                        <option value="kazakhstan" data-i18n="country_kz">哈萨克斯坦</option>
-                        <option value="uzbekistan" data-i18n="country_uz">乌兹别克斯坦</option>
-                        <option value="kyrgyzstan" data-i18n="country_kg">吉尔吉斯斯坦</option>
-                        <option value="tajikistan" data-i18n="country_tj">塔吉克斯坦</option>
-                        <option value="turkmenistan" data-i18n="country_tm">土库曼斯坦</option>
-                    </select>
-                </div>
+    <!-- 核心合作伙伴 -->
+    <div class="partners-showcase">
+        <h3 data-i18n="partners_title">🌟 战略合作伙伴</h3>
+        <div class="partners-grid">
+            <div class="partner-item">
+                <div class="partner-icon">🚆</div>
+                <div class="partner-name">中铁集装箱</div>
+                <div class="partner-desc">CRCT</div>
             </div>
-            
-            <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                <div class="form-group">
-                    <label data-i18n="dest_city">目的城市</label>
-                    <select id="dest-city">
-                        <!-- 会通过JS动态加载 -->
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label data-i18n="transport_mode">运输方式</label>
-                    <select id="transport-mode">
-                        <option value="rail" data-i18n="rail">铁路运输</option>
-                        <option value="road" data-i18n="road">公路运输</option>
-                        <option value="sea_rail" data-i18n="sea_rail">海铁联运</option>
-                        <option value="air_road" data-i18n="air_road">空陆联运</option>
-                    </select>
-                </div>
+            <div class="partner-item">
+                <div class="partner-icon">🏗️</div>
+                <div class="partner-name">中铁建工集团</div>
+                <div class="partner-desc">CRCEG</div>
             </div>
-            
-            <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                <div class="form-group">
-                    <label data-i18n="cargo_type">货物类型</label>
-                    <select id="cargo-type">
-                        <option value="20gp" data-i18n="container_20">20尺集装箱</option>
-                        <option value="40gp" data-i18n="container_40">40尺集装箱</option>
-                        <option value="ltl" data-i18n="ltl">拼箱 (按公斤)</option>
-                        <option value="bulk" data-i18n="bulk">散货 (按吨)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label data-i18n="quantity">数量</label>
-                    <input type="number" id="cargo-quantity" placeholder="例如: 1" value="1" min="0.1" step="0.1">
-                </div>
+            <div class="partner-item">
+                <div class="partner-icon">⚓</div>
+                <div class="partner-name">中远海运</div>
+                <div class="partner-desc">COSCO</div>
             </div>
-            
-            <button onclick="calculateShipping()" class="calc-btn" data-i18n="shipping_btn">查询运费参考</button>
-            
-            <!-- 结果显示区 -->
-            <div id="shipping-result" class="result-box" style="display: none; margin-top: 20px;">
-                <h3 data-i18n="shipping_result_title">运费估算结果</h3>
-                <div id="shipping-details"></div>
+            <div class="partner-item">
+                <div class="partner-icon">🛤️</div>
+                <div class="partner-name">山东高速齐鲁</div>
+                <div class="partner-desc">欧亚班列</div>
+            </div>
+            <div class="partner-item">
+                <div class="partner-icon">📦</div>
+                <div class="partner-name">新疆哈铁资</div>
+                <div class="partner-desc">国际物流</div>
+            </div>
+            <div class="partner-item">
+                <div class="partner-icon">🚢</div>
+                <div class="partner-name">湖北铁路集团</div>
+                <div class="partner-desc">国际联运</div>
+            </div>
+            <div class="partner-item">
+                <div class="partner-icon">🌐</div>
+                <div class="partner-name">Caspian express</div>
+                <div class="partner-desc">中亚物流</div>
+            </div>
+            <div class="partner-item">
+                <div class="partner-icon">🔄</div>
+                <div class="partner-name">PTC Cargo</div>
+                <div class="partner-desc">多式联运</div>
+            </div>
+            <div class="partner-item">
+                <div class="partner-icon">📊</div>
+                <div class="partner-name">Atasu Global</div>
+                <div class="partner-desc">Trans</div>
+            </div>
+            <div class="partner-item">
+                <div class="partner-icon">🔗</div>
+                <div class="partner-name">UTK Logistics</div>
+                <div class="partner-desc">中乌合资</div>
+            </div>
+            <div class="partner-item">
+                <div class="partner-icon">✨</div>
+                <div class="partner-name">Golden Eagle</div>
+                <div class="partner-desc">豪华专列</div>
+            </div>
+            <div class="partner-item">
+                <div class="partner-icon">📈</div>
+                <div class="partner-name">Ksira Logistics</div>
+                <div class="partner-desc">LLC</div>
             </div>
         </div>
-    </section>
+    </div>
+    
+    <!-- 铁路线路表格 -->
+<div class="routes-table-container">
+    <h3 data-i18n="routes_title">📋 主要铁路线路</h3>
+    <table class="routes-table">
+        <thead>
+            <tr>
+                <th data-i18n="route_origin">始发城市</th>
+                <th data-i18n="route_destination">目的城市/站</th>
+                <th data-i18n="route_country">目的国家</th>
+                <th data-i18n="route_port">出境口岸</th>
+                <th data-i18n="route_time">运输时效</th>
+                <th data-i18n="route_operator">承运方/线路</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 兰州 → 杜尚别 -->
+            <tr>
+                <td data-i18n="lanzhou">兰州</td>
+                <td><span data-i18n="dushanbe_station">杜尚别-2站</span></td>
+                <td data-i18n="country_tj">塔吉克斯坦</td>
+                <td><span data-i18n="via_kyrgyzstan">经吉尔吉斯斯坦</span></td>
+                <td><span data-i18n="days_18_20">18-20天</span></td>
+                <td><span data-i18n="partner_utk_full">UTK International Logistics</span></td>
+            </tr>
+            <!-- 武汉 → 塔什干 -->
+            <tr>
+                <td><span data-i18n="wuhan">武汉（香炉山站）</span></td>
+                <td data-i18n="tashkent">塔什干</td>
+                <td data-i18n="country_uz">乌兹别克斯坦</td>
+                <td data-i18n="khorgos">霍尔果斯</td>
+                <td><span data-i18n="days_12_15">12-15天</span></td>
+                <td data-i18n="partner_hubei_full">湖北铁路集团</td>
+            </tr>
+            <!-- 武汉 → 阿拉木图（新增时间） -->
+            <tr>
+                <td><span data-i18n="wuhan">武汉（香炉山站）</span></td>
+                <td data-i18n="almaty">阿拉木图</td>
+                <td data-i18n="country_kz">哈萨克斯坦</td>
+                <td data-i18n="khorgos">霍尔果斯</td>
+                <td><span data-i18n="days_10_12">10-12天</span></td>
+                <td data-i18n="partner_hubei_full">湖北铁路集团</td>
+            </tr>
+            <!-- 西安 → 阿拉木图-1（新增时间） -->
+            <tr>
+                <td data-i18n="xian">西安</td>
+                <td><span data-i18n="almaty_1">阿拉木图-1</span></td>
+                <td data-i18n="country_kz">哈萨克斯坦</td>
+                <td data-i18n="atengli">阿腾科里</td>
+                <td><span data-i18n="days_8_10">8-10天</span></td>
+                <td data-i18n="partner_xinjiang_full">新疆哈铁资国际物流</td>
+            </tr>
+            <!-- 西安 → 塔什干（新增时间） -->
+            <tr>
+                <td data-i18n="xian">西安</td>
+                <td data-i18n="tashkent">塔什干</td>
+                <td data-i18n="country_uz">乌兹别克斯坦</td>
+                <td data-i18n="atengli">阿腾科里</td>
+                <td><span data-i18n="days_5_6">5-6天</span></td>
+                <td data-i18n="partner_shandong_full">山东高速齐鲁欧亚班列</td>
+            </tr>
+            <!-- 西安 → 谢尔盖利（新增时间） -->
+            <tr>
+                <td data-i18n="xian">西安</td>
+                <td><span data-i18n="sergeli">谢尔盖利</span></td>
+                <td data-i18n="country_uz">乌兹别克斯坦</td>
+                <td data-i18n="atengli">阿腾科里</td>
+                <td><span data-i18n="days_12_15">12-15天</span></td>
+                <td data-i18n="partner_ptc_full">PTC Cargo</td>
+            </tr>
+            <!-- 西安 → 丘库尔赛（新增时间） -->
+            <tr>
+                <td data-i18n="xian">西安</td>
+                <td><span data-i18n="chukursay">丘库尔赛</span></td>
+                <td data-i18n="country_uz">乌兹别克斯坦</td>
+                <td data-i18n="atengli">阿腾科里</td>
+                <td><span data-i18n="days_13_16">13-16天</span></td>
+                <td data-i18n="partner_caspian_full">Caspian express</td>
+            </tr>
+            <!-- 西安 → 布伦代（新增时间） -->
+            <tr>
+                <td data-i18n="xian">西安</td>
+                <td><span data-i18n="burendai">布伦代</span></td>
+                <td data-i18n="country_kz">哈萨克斯坦</td>
+                <td><span data-i18n="atengli_dostyk">阿腾科里/多斯特克</span></td>
+                <td><span data-i18n="days_10_12">10-12天</span></td>
+                <td data-i18n="partner_ksira_full">Ksira Logistics</td>
+            </tr>
+            <!-- 西安 → 热特苏（新增时间） -->
+            <tr>
+                <td data-i18n="xian">西安</td>
+                <td><span data-i18n="zhetysu">热特苏</span></td>
+                <td data-i18n="country_kz">哈萨克斯坦</td>
+                <td data-i18n="atengli">阿腾科里</td>
+                <td><span data-i18n="days_10_12">10-12天</span></td>
+                <td data-i18n="partner_atasu_full">Atasu Global Trans</td>
+            </tr>
+            <!-- 北京/西安/敦煌 → 阿拉木图/塔什干（旅游专列） -->
+            <tr>
+                <td><span data-i18n="beijing_xian_dunhuang">北京/西安/敦煌</span></td>
+                <td><span data-i18n="almaty_tashkent">阿拉木图/塔什干</span></td>
+                <td><span data-i18n="kz_uz">哈/乌</span></td>
+                <td><span data-i18n="air_rail">航空+铁路</span></td>
+                <td><span data-i18n="days_22_tour">22天（旅游）</span></td>
+                <td data-i18n="partner_golden_full">Golden Eagle Luxury Trains</td>
+            </tr>
+            <!-- 跨里海中间走廊（新增时间） -->
+            <tr>
+                <td><span data-i18n="china_cities">中国各城市</span></td>
+                <td><span data-i18n="transcaspian">跨里海（中间走廊）</span></td>
+                <td><span data-i18n="via_azerbaycan_georgia">经阿塞拜疆/格鲁吉亚</span></td>
+                <td><span data-i18n="aktau_baku">阿克套/巴库</span></td>
+                <td><span data-i18n="days_18_25">18-25天</span></td>
+                <td><span data-i18n="partner_crct_participate">中铁集装箱参与</span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+    
+    <div class="rail-note">
+        <p data-i18n="rail_note">※ 以上线路信息基于中铁集装箱2026年招标结果及实际运营数据，可扫码微信咨询具体运价和班期 [citation:2][citation:5][citation:8]</p>
+    </div>
+</section>
+
+   
+
 
     <!-- 联系我们 - 微信直联版 -->
-    <section id="contact" class="contact-section">
-        <h2 data-i18n="contact_title">📞 联系我</h2>
-        <p class="contact-subtitle" data-i18n="contact_subtitle">扫码添加微信，一对一服务</p>
-        
-        <div class="contact-container" style="grid-template-columns: 1fr 1fr; max-width: 1000px;">
-            <!-- 左侧：微信二维码 -->
-            <div class="wechat-qr-card">
-                <h3 data-i18n="wechat_title">📱 添加我的微信</h3>
-                <div class="qr-code">
-                    <!-- 这里放您的二维码图片 -->
-                    <img src="images/wechat-qr.jpg" alt="微信二维码" style="width: 100%; max-width: 300px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
-                </div>
-                <div class="wechat-id">
-                    <p data-i18n="wechat_id_label">微信号：</p>
-                    <p class="wechat-number"><strong>LRT-trade</strong></p>
-                    <button onclick="copyWechatId()" class="copy-btn" data-i18n="copy_btn">复制微信号</button>
-                </div>
+<section id="contact" class="contact-section">
+    <h2 data-i18n="contact_title">📞 联系我</h2>
+    <p class="contact-subtitle" data-i18n="contact_subtitle">扫码添加微信，一对一服务</p>
+    
+    <div class="contact-container" style="grid-template-columns: 1fr 1fr; max-width: 1000px;">
+        <!-- 左侧：微信二维码 + 服务承诺 -->
+        <div class="wechat-qr-card">
+            <h3 data-i18n="wechat_title">📱 添加我的微信</h3>
+            <div class="qr-code">
+                <img src="images/wechat-qr.jpg" alt="微信二维码" style="width: 100%; max-width: 300px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+            </div>
+            <div class="wechat-id">
+                <p data-i18n="wechat_id_label">微信号：</p>
+                <p class="wechat-number"><strong>LRT316819</strong></p>
+                <button onclick="copyWechatId()" class="copy-btn" data-i18n="copy_btn">复制微信号</button>
             </div>
             
-            <!-- 右侧：快速联系信息 -->
-            <div class="quick-contact-card">
-                <h3 data-i18n="quick_contact_title">⚡ 快速联系</h3>
-                
-                <div class="contact-methods-compact">
-                    <div class="contact-item-compact">
-                        <span class="contact-icon-small">📞</span>
-                        <div>
-                            <strong data-i18n="phone">电话</strong>
-                            <p>+86 123 4567 890</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item-compact">
-                        <span class="contact-icon-small">✉️</span>
-                        <div>
-                            <strong data-i18n="email">邮箱</strong>
-                            <p>trade@example.com</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-item-compact">
-                        <span class="contact-icon-small">💬</span>
-                        <div>
-                            <strong data-i18n="messenger">即时通讯</strong>
-                            <p>WhatsApp / WeChat / Telegram</p>
-                        </div>
-                    </div>
+            <!-- 新增：服务承诺 -->
+            <div class="service-promise">
+                <div class="promise-badge">
+                    <span class="promise-icon">🏭</span>
+                    <span class="promise-text" data-i18n="promise_factory">有意向？直接带您去厂家考察！</span>
                 </div>
-                
-                <div class="response-time">
-                    <p data-i18n="response_time">⏰ 通常 5 分钟内回复</p>
+                <div class="promise-detail">
+                    <p data-i18n="promise_detail">看中商品后，我亲自陪同您前往工厂实地考察，现场洽谈，确保交易透明放心。</p>
                 </div>
             </div>
         </div>
-    </section>
+        
+        <!-- 右侧：快速联系信息（保持不变） -->
+        <div class="quick-contact-card">
+            <h3 data-i18n="quick_contact_title">⚡ 快速联系</h3>
+            
+            <div class="contact-methods-compact">
+                <div class="contact-item-compact">
+                    <span class="contact-icon-small">📞</span>
+                    <div>
+                        <strong data-i18n="phone">电话</strong>
+                        <p>+86 123 4567 890</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item-compact">
+                    <span class="contact-icon-small">✉️</span>
+                    <div>
+                        <strong data-i18n="email">邮箱</strong>
+                        <p>trade@example.com</p>
+                    </div>
+                </div>
+                
+                <div class="contact-item-compact">
+                    <span class="contact-icon-small">💬</span>
+                    <div>
+                        <strong data-i18n="messenger">即时通讯</strong>
+                        <p>WhatsApp / WeChat / Telegram</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="response-time">
+                <p data-i18n="response_time">⏰ 通常 5 分钟内回复</p>
+            </div>
+        </div>
+    </div>
+</section>
 
     <!-- 复制微信号提示（隐藏） -->
     <div id="copy-toast" style="display: none; position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.8); color: white; padding: 12px 24px; border-radius: 30px; z-index: 3000; font-size: 1rem; backdrop-filter: blur(5px);">微信号已复制，去微信添加吧</div>
