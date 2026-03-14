@@ -73,12 +73,96 @@ function quickCalculate(productId) {
             document.getElementById('category-select').value = currentProduct.category;
         }
         
-        calculateTariffWithAPI();
+        calculateTariffWithAPI(); // 改为调用API
         document.getElementById('calculator').scrollIntoView({ behavior: 'smooth' });
     }
 }
 
+// ========== API关税计算函数 ==========
 async function calculateTariffWithAPI() {
+    const price = parseFloat(document.getElementById('product-price').value);
+    const country = document.getElementById('country-select').value;
+    const hsCode = currentProduct?.hs_code || '';
+    
+    if (!price || price <= 0) {
+        alert('请输入商品价格');
+        return;
+    }
+    
+    const resultDiv = document.getElementById('result');
+    const resultDetails = document.getElementById('result-details');
+    resultDiv.style.display = 'block';
+    resultDetails.innerHTML = '<p>正在查询真实关税数据...</p>';
+    
+    try {
+        const response = await fetch('http://localhost:5000/api/get-tariff', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                hs_code: hsCode,
+                country: country
+            })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            const data = result.data;
+            
+            // 计算关税
+            let tariff = 0;
+            let rateDisplay = '';
+            
+            if (data.tariff_type === 'percentage') {
+                tariff = price * data.tariff_rate;
+                rateDisplay = `${(data.tariff_rate*100).toFixed(1)}%`;
+                
+                const vat = (price + tariff) * data.vat_rate;
+                const total = price + tariff + vat;
+                
+                // 显示结果
+                const html = `
+                    <div style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px;">
+                        <p><strong>商品价格:</strong> $${price.toFixed(2)}</p>
+                        <p><strong>关税 (${rateDisplay}):</strong> $${tariff.toFixed(2)}</p>
+                        <p><strong>增值税 (${(data.vat_rate*100).toFixed(0)}%):</strong> $${vat.toFixed(2)}</p>
+                    </div>
+                    <div style="font-size: 1.3em; color: #0052cc; font-weight: bold; margin: 15px 0;">
+                        总计: $${total.toFixed(2)}
+                    </div>
+                    <div style="font-size: 0.8em; color: #666; margin-top: 10px;">
+                        📊 数据来源: ${data.tariff_note || '真实海关数据'}
+                    </div>
+                `;
+                
+                resultDetails.innerHTML = html;
+            } else {
+                // 从量税显示提示
+                resultDetails.innerHTML = `
+                    <p style="color: #856404; background: #fff3cd; padding: 15px; border-radius: 8px;">
+                        <strong>ⓘ 该商品按从量税计征</strong><br>
+                        ${data.full_response}<br>
+                        <span style="font-size: 0.9rem;">请联系客服获取精确报价，并提供具体规格参数。</span>
+                    </p>
+                `;
+            }
+        } else {
+            throw new Error('查询失败');
+        }
+        
+    } catch (error) {
+        console.error('API调用失败:', error);
+        resultDetails.innerHTML = `
+            <p style="color: red;">❌ API连接失败，请确保本地服务器已启动</p>
+            <p style="font-size: 0.8em; color: #666;">错误信息: ${error.message}</p>
+        `;
+    }
+}
+
+// 保留本地计算函数作为备用（但不使用）
+function calculateTariffLocally() {
     const price = parseFloat(document.getElementById('product-price').value);
     const weight = parseFloat(document.getElementById('product-weight').value);
     const country = document.getElementById('country-select').value;
@@ -93,112 +177,93 @@ async function calculateTariffWithAPI() {
         return;
     }
     
-    const resultDiv = document.getElementById('result');
-    const resultDetails = document.getElementById('result-details');
-    resultDiv.style.display = 'block';
-    resultDetails.innerHTML = '<p>正在查询最新关税数据...</p>';
-    
-    const hsCode = currentProduct?.hs_code || null;
-    
-    let tariffData = null;
-    if (typeof getTariffRate === 'function') {
-        tariffData = await getTariffRate(hsCode, country);
-    }
-    
-    if (!tariffData) {
-        const defaultRates = {
-            'kazakhstan': 0.086, 'uzbekistan': 0.074, 'kyrgyzstan': 0.08,
-            'tajikistan': 0.08, 'turkmenistan': 0.05
-        };
-        
-        const specialRates = {
-            'machinery': 0.05, 'textiles': 0.12, 'food': 0.15,
-            'electronics': 0.08, 'general': 0.08
-        };
-        
-        let rate = defaultRates[country] || 0.08;
-        if (category && specialRates[category]) {
-            rate = specialRates[category];
-        }
-        
-        tariffData = {
-            rate: rate,
-            source: 'local',
-            note: '使用本地默认税率'
-        };
-    }
-    
-    const countryData = getCountryData(country);
-    
-    const tariff = price * tariffData.rate;
-    const vat = (price + tariff) * countryData.vatRate;
-    const total = price + tariff + vat; // 只加关税和增值税，删除运费
-    
-    displayResult(price, tariff, vat, total, tariffData, countryData);
-}
-
-function getCountryData(country) {
-    const countryDB = {
-        'kazakhstan': { vatRate: 0.12, name: '哈萨克斯坦' },
-        'uzbekistan': { vatRate: 0.12, name: '乌兹别克斯坦' },
-        'kyrgyzstan': { vatRate: 0.12, name: '吉尔吉斯斯坦' },
-        'tajikistan': { vatRate: 0.14, name: '塔吉克斯坦' },
-        'turkmenistan': { vatRate: 0.15, name: '土库曼斯坦' }
+    // 默认税率
+    const defaultRates = {
+        'kazakhstan': 0.086, 'uzbekistan': 0.074, 'kyrgyzstan': 0.08,
+        'tajikistan': 0.08, 'turkmenistan': 0.05
     };
-    return countryDB[country] || { vatRate: 0.12, name: '未知' };
+    
+    // 特殊类别税率
+    const specialRates = {
+        'machinery': 0.05, 'textiles': 0.12, 'food': 0.15,
+        'electronics': 0.08, 'general': 0.08
+    };
+    
+    let rate = defaultRates[country] || 0.08;
+    if (category && specialRates[category]) {
+        rate = specialRates[category];
+    }
+    
+    // 国家数据（增值税率）
+    const vatRates = {
+        'kazakhstan': 0.12,
+        'uzbekistan': 0.12,
+        'kyrgyzstan': 0.12,
+        'tajikistan': 0.14,
+        'turkmenistan': 0.15
+    };
+    const vatRate = vatRates[country] || 0.12;
+    
+    // 计算
+    const tariff = price * rate;
+    const vat = (price + tariff) * vatRate;
+    const total = price + tariff + vat;
+    
+    // 直接显示结果
+    displayLocalResult(price, tariff, vat, total, rate, country);
 }
 
-function displayResult(price, tariff, vat, total, tariffData, countryData) {
+// 本地结果显示函数
+function displayLocalResult(price, tariff, vat, total, rate, country) {
     const resultDetails = document.getElementById('result-details');
+    const resultDiv = document.getElementById('result');
+    resultDiv.style.display = 'block';
+    
     const currentLang = localStorage.getItem('preferred_language') || 'zh';
-    
     const formatMoney = (num) => `$${num.toFixed(2)}`;
-    const tariffPercent = (tariffData.rate * 100).toFixed(1);
+    const tariffPercent = (rate * 100).toFixed(1);
     
-    const sourceColor = tariffData.source === 'WITS' ? '#28a745' : '#ffc107';
-    const sourceText = tariffData.source === 'WITS' ? '世界银行实时数据' : '本地估算';
+    // 获取国家增值税率显示
+    const vatRates = {
+        'kazakhstan': 12, 'uzbekistan': 12, 'kyrgyzstan': 12,
+        'tajikistan': 14, 'turkmenistan': 15
+    };
+    const vatPercent = vatRates[country] || 12;
     
-    let html = '';
     if (currentLang === 'zh') {
-        html = `
+        resultDetails.innerHTML = `
             <div style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px;">
                 <p><strong>商品价格:</strong> ${formatMoney(price)}</p>
                 <p><strong>关税 (${tariffPercent}%):</strong> ${formatMoney(tariff)}</p>
-                <p><strong>增值税 (${(countryData.vatRate*100).toFixed(0)}%):</strong> ${formatMoney(vat)}</p>
+                <p><strong>增值税 (${vatPercent}%):</strong> ${formatMoney(vat)}</p>
             </div>
             <div style="font-size: 1.3em; color: #0052cc; font-weight: bold; margin: 15px 0;">
-                总计 (含关税+增值税): ${formatMoney(total)}
+                总计: ${formatMoney(total)}
             </div>
-            <div style="font-size: 0.8em; color: ${sourceColor}; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #ddd;">
-                📊 关税数据来源: ${sourceText}
-                ${tariffData.note ? `<br>📝 备注: ${tariffData.note}` : ''}
-                ${currentProduct?.hs_code ? `<br>🔖 HS编码: ${currentProduct.hs_code}` : ''}
+            <div style="font-size: 0.8em; color: #666; margin-top: 10px;">
+                📊 数据来源: 本地参考税率
             </div>
         `;
     } else {
-        html = `
+        resultDetails.innerHTML = `
             <div style="border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px;">
                 <p><strong>Цена товара:</strong> ${formatMoney(price)}</p>
                 <p><strong>Пошлина (${tariffPercent}%):</strong> ${formatMoney(tariff)}</p>
-                <p><strong>НДС (${(countryData.vatRate*100).toFixed(0)}%):</strong> ${formatMoney(vat)}</p>
+                <p><strong>НДС (${vatPercent}%):</strong> ${formatMoney(vat)}</p>
             </div>
             <div style="font-size: 1.3em; color: #0052cc; font-weight: bold; margin: 15px 0;">
                 Итого: ${formatMoney(total)}
             </div>
-            <div style="font-size: 0.8em; color: ${sourceColor}; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #ddd;">
-                📊 Источник данных: ${tariffData.source === 'WITS' ? 'Всемирный банк' : 'Оценка'}
-                ${tariffData.note ? `<br>📝 Примечание: ${tariffData.note}` : ''}
-                ${currentProduct?.hs_code ? `<br>🔖 HS код: ${currentProduct.hs_code}` : ''}
+            <div style="font-size: 0.8em; color: #666; margin-top: 10px;">
+                📊 Источник: Локальная ставка
             </div>
         `;
     }
-    
-    resultDetails.innerHTML = html;
 }
 
 // 兼容原版按钮
 window.calculateTariff = function() {
-    calculateTariffWithAPI();
+    calculateTariffWithAPI(); // 改为调用API
 };
 
 // ===== 全程陪同服务表单处理 =====
@@ -208,7 +273,6 @@ document.addEventListener('DOMContentLoaded', function() {
         accompanyForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // 收集表单数据
             const formData = {
                 name: document.getElementById('client-name').value,
                 phone: document.getElementById('client-phone').value,
@@ -221,37 +285,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 services: []
             };
             
-            // 收集选中的服务
             document.querySelectorAll('input[name="services"]:checked').forEach(cb => {
                 formData.services.push(cb.value);
             });
             
-            // 这里可以发送到您的邮箱或后台
             console.log('预约数据:', formData);
             
-            // 模拟发送
             setTimeout(() => {
-                // 隐藏表单，显示成功信息
                 document.querySelector('.service-form').style.display = 'none';
                 document.getElementById('service-success').style.display = 'block';
-                
-                // 可选：发送到您的邮箱（需要后端支持）
-                // sendToEmail(formData);
             }, 1000);
         });
     }
 });
 
-// 可选：发送邮件函数（需要后端API）
-function sendToEmail(formData) {
-    // 这里可以调用您的后端API
-    // 例如：fetch('/api/send-email', { method: 'POST', body: JSON.stringify(formData) })
-    alert('预约已提交，我们会尽快联系您！');
-}
-
 // ===== 商品详情弹窗功能 =====
-
-// 打开详情弹窗
 function showProductDetail(productId) {
     const product = products.find(p => p.id === productId);
     if (!product) return;
@@ -263,7 +311,6 @@ function showProductDetail(productId) {
     const modal = document.getElementById('product-modal');
     const modalContent = document.getElementById('modal-product-detail');
     
-    // 构建详情HTML
     modalContent.innerHTML = `
         <div class="product-detail">
             <div class="product-detail-header">
@@ -296,11 +343,6 @@ function showProductDetail(productId) {
             <div class="product-detail-description">
                 <h3>${currentLang === 'zh' ? '商品描述' : 'Описание'}</h3>
                 <p>${description}</p>
-                ${product.features ? `
-                <ul style="margin-top: 15px; padding-left: 20px;">
-                    ${product.features.map(f => `<li>${f}</li>`).join('')}
-                </ul>
-                ` : ''}
             </div>
             
             <div class="product-detail-actions">
@@ -315,30 +357,26 @@ function showProductDetail(productId) {
     `;
     
     modal.style.display = 'block';
-    document.body.style.overflow = 'hidden'; // 禁止背景滚动
+    document.body.style.overflow = 'hidden';
 }
 
-// 关闭弹窗
 function closeProductModal() {
     const modal = document.getElementById('product-modal');
     if (modal) {
         modal.style.display = 'none';
-        document.body.style.overflow = 'auto'; // 恢复背景滚动
+        document.body.style.overflow = 'auto';
     }
 }
 
-// 设置弹窗事件
 function setupModalEvents() {
     const modal = document.getElementById('product-modal');
     if (!modal) return;
     
     const closeBtn = document.querySelector('.close-modal');
-    
     if (closeBtn) {
         closeBtn.onclick = closeProductModal;
     }
     
-    // 点击空白区域关闭
     modal.onclick = function(event) {
         if (event.target === modal) {
             closeProductModal();
@@ -346,7 +384,6 @@ function setupModalEvents() {
     };
 }
 
-// 监听语言切换
 document.addEventListener('languageChanged', function(e) {
     displayProducts();
 });
