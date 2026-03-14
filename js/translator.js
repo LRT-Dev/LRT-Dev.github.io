@@ -20,6 +20,13 @@ const translations = {
     'calc_btn': '计算总费用',
     'result_title': '计算结果',
     
+    // 微信相关翻译
+    'wechat_title': '📱 添加我的微信',
+    'wechat_id_label': '微信号：',
+    'copy_btn': '复制微信号',
+    'quick_contact_title': '⚡ 快速联系',
+    'response_time': '⏰ 通常 5 分钟内回复',
+    
     // 联系我们 & 预约服务翻译
     'contact_title': '📞 联系我们',
     'contact_subtitle': '有任何需求？我们为您解决中国境内一切事务',
@@ -151,6 +158,13 @@ const translations = {
     'calc_category': 'Категория товара',
     'calc_btn': 'Рассчитать стоимость',
     'result_title': 'Результат',
+    
+    // 微信相关翻译
+    'wechat_title': '📱 Добавить в WeChat',
+    'wechat_id_label': 'WeChat ID:',
+    'copy_btn': 'Копировать',
+    'quick_contact_title': '⚡ Быстрая связь',
+    'response_time': '⏰ Ответ в течение 5 минут',
     
     // 联系我们 & 预约服务翻译
     'contact_title': '📞 Свяжитесь с нами',
